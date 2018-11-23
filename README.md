@@ -4,4 +4,4 @@
 2. Unpack the downloaded file.
 3. Open `index.html`.
 ## Consider before downloading
-* This tool requires an internet connection to work. It has to be able to reach wikimedia.org and cors.io (and, if you want Pīnyīn added in your PDF, glosbe.com).
+This tool requires an internet connection to work. It has to be able to reach wikimedia.org and cors.io (and, if you want Pīnyīn added in your PDF, glosbe.com).
