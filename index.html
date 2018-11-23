@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<title>Chinese character writing worksheet creation tool</title>
+	<link rel="stylesheet" href="res/normalize.css">
+	<link rel="stylesheet" href="res/loadingdots.css">
+	<style>
+		* {
+			font-family: sans-serif;
+		}
+		body {
+			padding: 0 15px;
+		}
+		.formtable {
+			border-collapse: collapse;
+		}
+		.formtable td {
+			vertical-align: top;
+			border-bottom: 1px solid lightgrey;
+			padding: 4px 0 4px 3px;
+		}
+		.formtable td:nth-of-type(1) {
+			text-align: right;
+		}
+		.formtable tr {
+		}
+		.annotation {
+			font-style: italic;
+			color: #444;
+			font-size: 0.9em;
+		}
+		sup a {
+			font-weight: bold;
+			text-decoration: none;
+			padding-left: 2px;
+		}
+		.status {
+			display: none;
+			font-style: italic;
+		}
+		#mainstatus {
+			font-weight: bold;
+		}
+		.errorStatus {
+			color: #d00;
+		}
+		label {
+			display: inline-block;
+		}
+	</style>
+	<script src="res/jquery.js"></script>
+	<script src="res/fontsAsBase64.js"></script>
+	<script src="res/fontsAsBase64_pinyin.js"></script>
+	<script src="res/jspdf.js"></script>
+	<script src="res/script.js"></script>
+</head>
+<body>
+	<h1>许多汉字 - Tool to create worksheets for Chinese character writing practice</h1>
+	<p>
+	Create a pdf (A4 format) for practicing Chinese character writing. Internet connection is required.
+	<br/>
+	If you are new to this tool, just fill out the first two fields and click "Create PDF!" to get a glimpse of what it does.
+	</p>	
+	<fieldset id="formFieldset">
+		<table class="formtable">
+			<tr>
+				<td><label for="doc-title">Document title:</label></td>
+				<td><input type="text" id="doc-title" value="öäü}}]][.\-\/[_我爱你"/></td>
+			</tr>
+			<tr>
+				<td><label for="characters">Characters to practice:</label></td>
+				<td>
+					<textarea id="characters" style="font-size:17pt;">反對,共和}黨風格。混搭風格我爱你馬毌，öän</textarea>
+					<br/>
+					<span class="annotation">※Insert the characters in the order you want them to appear in the pdf. There will be 11 characters per page.</span>
+					<br/>
+					<input type="checkbox" id="removeDuplicates" name="removeDuplicates" checked> <label for="removeDuplicates">Remove duplicates</label>
+				</td>
+			</tr>
+			<tr>
+				<td>Stroke order<sup id="ref1-origin"><a href="#ref1">1</a></sup>:</td>
+				<td>
+					<input type="radio" id="so-ch" name="strokeOrder" value="ch" checked> <label for="so-ch">China</label>
+					&thinsp;
+					<input type="radio" id="so-tw" name="strokeOrder" value="tw" disabled> <label for="so-tw" style="color:gray">Taiwan</label>
+					&thinsp;
+					<input type="radio" id="so-jp" name="strokeOrder" value="jp" disabled> <label for="so-jp" style="color:gray">Japan</label>
+					<br/>
+					<span class="annotation">※Only China stroke orders are available so far.</span>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="number-gray-signs">Number of grayscale support signs<sup id="ref2-origin"><a href="#ref2">2</a></sup>:</label></td>
+				<td>
+					<input id="number-gray-signs" type="number" min=0 max=10 value="4"/>/10
+				</td>
+			</tr>
+			<tr>
+				<td>More options:</td>
+				<td>
+					<input type="checkbox" id="write-pinyin" name="write-pinyin" checked> <label for="write-pinyin">Add Pīnyīn to the characters</label>
+					<br/>
+					<input type="checkbox" id="use-gridlines" name="use-gridlines" disabled> <label for="use-gridlines" style="color:gray">Use gridlines</label><sup id="ref3-origin"><a href="#ref3">3</a></sup>
+					<br/>
+					<input type="checkbox" id="write-name" name="write-name" checked> <label for="write-name">Write "姓名：___" (name) on top</label>
+				</td>
+			</tr>
+			<tr>
+				<td><label for="doc-filename">Resulting PDF filename:</label></td>
+				<td>
+					<input type="text" id="doc-filename"/>.pdf
+					<br/>
+					<span class="annotation">※Leave this empty to create the filename automatically from the document title you entered.</span>
+					</td>
+			</tr>
+			<tr>
+				<td>Way of receiving PDF:</td>
+				<td>
+					<input type="radio" id="way-of-retr-download" name="way-of-retr" value="download" checked> <label for="way-of-retr-download">Download</label>
+					&thinsp;
+					<input type="radio" id="way-of-retr-window" name="way-of-retr" value="window"> <label for="way-of-retr-window">Open in new window/tab</label><sup id="ref4-origin"><a href="#ref4">4</a>,</sup><sup id="ref5-origin"><a href="#ref5">5</a></sup>
+					&thinsp;
+					<input type="radio" id="way-of-retr-cur-window" name="way-of-retr" value="currentWindow"> <label for="way-of-retr-cur-window">Open in current window/tab</label><sup id="ref5-origin2"><a href="#ref5">5</a></sup>
+					<!--<br/>
+					<span class="annotation">※Only Download is available so far, as the "Open in new window/tab" doesn't seem to work so far.</span>-->
+				</td>
+			</tr>
+			<tr>
+				<td><span id="mainstatus" class="status"></span></td>
+				<td>
+					<input type="button" id="create-pdf" value="Create PDF!"/>
+					<span id="substatus" class="status loadingDotsBehind">
+					</span>
+				</td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	__________
+	<dl style="margin-top:0">
+		<dt id="ref1">[<a href="#ref1-origin">1</a>]</dt>
+			<dd>This refers to the cases where traditional and/or Japanese characters look the same as the simplified ones. Amongst those cases are only 4 resp. 57 stroke orders that differ from the China stroke order in <a href="https://commons.wikimedia.org/wiki/Commons:Stroke_Order_Project#Finding_characters" target="_blank">our database</a> (as of November 20, 2018).</dd>
+		<dt id="ref2">[<a href="#ref2-origin">2</a>]</dt>
+			<dd>Per character, there are 10 squares for students to practice writing the sign (and one square in front of them displaying the sign). In how many of those 10 squares should the sign be written in grayscale to support practicing? Lower numbers for more advanced students.</dd>
+		<dt id="ref3">[<a href="#ref3-origin">3</a>]</dt>
+			<dd>Gridlines not available so far. <!--INSERT GRIDLINES VS NO GRIDLINES IMAGE HERE.--></dd>
+		<dt id="ref4">[<a href="#ref4-origin">4</a>]</dt>
+			<dd>You might have to allow pop-ups for this page. Further, if this settings results in a new window or tab depends on your browser (settings).</dd>
+		<dt id="ref5">[<a href="#ref5-origin">5</a>]</dt>
+			<dd>Sometimes, the created PDF document looks slightly different in the browser's preview. To see the actual result, open it in you favorite desktop PDF viewer. (You can still save the document when choosing one of the window/tab options. Simply hit Ctrl+S or right click and choose "Save Page as...".)</dd>
+	</dl>
+	
+	<hr/>
+	
+	<h2>Yet another Chinese learning-something tool?</h2>
+	Yes, as I was kinda surprised when my Chinese teacher used a tool she paid for to do exactly this.
+	<h2 id="sec:errorHandling">Error handling</h2>
+	What to do if something went wrong. Try those suggestions:
+	<ul>
+		<li>This tool heavily uses the internet. Make sure you are connected and wikimedia.org, cors.io and glosbe.com are accessible. (You can find the links in the <a href="#sec:thisToolUses">"This tool uses..." section</a>.)</li>
+		<li>If it says "PDF created" but you did not get the PDF, try choose a different option under "Way of receiving PDF". "Download" usually works. Also refer to <a href="#ref4">Ref. 4</a>.</li>
+		<li>Try to choose different characters and leave all the other fields blank / at their default value.
+			<ul><li>If this solves your issue, please report about both the input that did not work and the one that did on <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or by <a href="https://github.com/12jr/" target="_blank">contacting me</a>.</li></ul>
+		</li>
+	</ul>
+	If those suggestions did not help you, post your question to <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or <a href="https://github.com/12jr/" target="_blank">contact me</a>.
+	<h2 id="sec:thisToolUses">This tool uses...</h2>
+	<ul>
+		<li>The <a href="https://commons.wikimedia.org/wiki/Commons:Stroke_Order_Project" target="_blank"> Wikimedia Commons Stroke Order Project</a> as the source of the stroke order pictures,
+		<br/>the <a href="https://www.mediawiki.org/wiki/API:Main_page" target="_blank">Wikimedia Commons API</a> to get those pictures, and
+		<br/><a href="https://cors.io/" target="_blank">cors.io</a> to be able to get those pictures with JavaScript.</li>
+		<li><a href="https://glosbe.com/a-api" target="_blank">Glosbe API</a> to create Pīnyīn from the characters.</li>
+		<li><a href="https://parall.ax/products/jspdf" target="_blank">jsPDF</a> to create the PDFs dynamically.</li>
+		<li><a href="https://necolas.github.io/normalize.css/" target="_blank">normalize.css</a> for the looks.</li>
+		<li><a href="https://jquery.com/" target="_blank">jQuery</a> for coding.</li>
+		<li><a href="https://codepen.io/vkjgr/pen/gbPaVx" target="_blank">Some code</a> for fancy "loading dots".</li>
+		<li><a href="https://source.typekit.com/source-han-serif/" target="_blank">Source Han Serif</a> (<a href="https://github.com/adobe-fonts/source-han-serif/releases/tag/1.001R" target="_blank">Release 1.001</a>) as a Chinese font.</li>
+		<li><a href="https://www.google.com/get/noto/#sans-lgc" target="_blank">Noto Sans</a> as a Pīnyīn font.</li>
+	</ul>
+	Thank you to everybody who contributed to those projects and thereby made this one possible!
+	
+	<h2><a href="https://github.com/12jr/chinese-character-worksheets" target="_blank">Fork and/or download me on Github!</a></h2>
+	Users: <a href="https://github.com/12jr/chinese-character-worksheets/releases" target="_blank">Download (@Releases page)</a>&ensp;|&ensp;Developers: <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">What to do next? (@Issues page)</a>
+	<hr/>
+	版权 2018. Version 1.0. <a href="https://github.com/12jr/chinese-character-worksheets/blob/master/LICENSE" target="_blank">MIT License</a>.
+</body>
+</html>
