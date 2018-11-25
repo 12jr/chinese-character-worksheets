@@ -99,6 +99,8 @@ $(document).ready(function(){
 			$("#substatus").html("Adding Pīnyīn font");
 			doc.addFileToVFS('NotoSans-Regular.ttf', pinyinFontBase64);
 			doc.addFont('NotoSans-Regular.ttf', 'Noto Sans', 'normal');
+		// set style of ends of lines (for nice corners)
+			doc.setLineCap("projecting");
 		// draw character lines: 11 characters per page, 11 characters per line
 			$("#substatus").html("Writing character lines (line <span class='amountDone'>0</span>/" + characters.length + ")");
 			var i;
