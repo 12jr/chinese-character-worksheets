@@ -1,11 +1,14 @@
 # Tool to create worksheets for Chinese character writing practice
 ## For users
-### How to use?
-1. Head to the [Releases page](https://github.com/12jr/chinese-character-worksheets/releases) and download the latest version's source code. If you're on Windows, you might want to choose `zip`.
-2. Unpack the downloaded file.
-3. Open `index.html`.
+### How can I create worksheets?
+1.  Head to the [Releases page](https://github.com/12jr/chinese-character-worksheets/releases) and download the latest version's source code. <br/> If you're on Windows, you might want to choose `zip`.
+2.  Unpack the downloaded file.
+3.  Open `index.html`.
 ### Consider before downloading
-This tool requires an internet connection to work. It has to be able to reach wikimedia.org and cors.io (and, if you want Pīnyīn added in your PDF, glosbe.com).
+*  To add stroke order images (like [this one](https://upload.wikimedia.org/wikipedia/commons/b/b6/%E6%88%91-bw.png)) to your worksheet, this tool has to be able to reach [wikimedia.org](wikimedia.org) and [cors.io](https://cors.io/).
+*  To add [Pīnyīn](https://en.wikipedia.org/wiki/Pinyin) to your worksheet, this tool has to be able to reach [glosbe.com](https://glosbe.com/) and [cors.io](https://cors.io/).
+
+Except for those two features, the tool is able to run offline.
 ## For developers
 ### What is it with those Base64 font files?
 In [`res/fontsB64`](res/fontsB64), there are some files which assign Base64 encoded `ttf`/`ttc` files to Javascript variables. They are used by the PDF creation library (jsPDF) to display Pīnyīn and Chinese characters.
