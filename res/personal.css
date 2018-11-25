@@ -1,11 +1,13 @@
 /* this is the customized style for the app - feel free to change it to your own design */
-#characters, #doc-title {
-	min-width: calc(100% - 5px);
-	max-width: calc(100% - 5px);
-}
 #characters {
 	height: 20pt;
 	min-height: 20pt;
+	resize: vertical;
+}
+#characters, #doc-title {
+	width: calc(100% - 5px);
+	min-width: calc(100% - 5px);
+	max-width: calc(100% - 5px);
 }
 #doc-filename {
 	min-width: calc(50%);

@@ -41,7 +41,7 @@ sup a {
 #statusTr.error #substatus {
 	color: #d00;
 }
-label {
+.checkRadioBlock {
 	display: inline-block;
 }
 #gridlineExampleTable td {
