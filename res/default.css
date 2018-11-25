@@ -41,6 +41,12 @@ sup a {
 label {
 	display: inline-block;
 }
+#gridlineExampleTable td {
+	padding: 0 5px 0 0;
+}
+#gridlineExampleTable img {
+	max-height: 65px;
+}
 /*
 * LOADING DOTS
 * this is from https://codepen.io/vkjgr/pen/gbPaVx
