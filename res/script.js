@@ -86,10 +86,10 @@ $(document).ready(function(){
 		// new jsPDF-doc
 			var doc = new jsPDF();
 		// import font to jsPDF
-			$("#substatus").html("Addings Chinese font");
-			doc.addFileToVFS('Source Han Serif.ttf', chineseFontBase64);
-			doc.addFont('Source Han Serif.ttf', 'Source Han Serif', 'normal');
-			$("#substatus").html("Addings Pīnyīn font");
+			$("#substatus").html("Adding Chinese font");
+			doc.addFileToVFS('AR PL UKai CN.ttf', ArPlUkaiCnBase64);
+			doc.addFont('AR PL UKai CN.ttf', 'AR PL UKai CN', 'normal');
+			$("#substatus").html("Adding Pīnyīn font");
 			doc.addFileToVFS('NotoSans-Regular.ttf', pinyinFontBase64);
 			doc.addFont('NotoSans-Regular.ttf', 'Noto Sans', 'normal');
 		// draw character lines: 11 characters per page, 11 characters per line
@@ -115,12 +115,12 @@ $(document).ready(function(){
 					doc.line(xUpLeft, 17, 201, 17);
 					// write "姓名：" if the user wanted it
 					if(writeName){
-						doc.setFont('Source Han Serif');
+						doc.setFont('AR PL UKai CN');
 						doc.setFontSize(11); //in pt
 						doc.text("姓名：", xUpLeft, 16);
 					}
 					// write doc title
-						doc.setFont('Source Han Serif');
+						doc.setFont('AR PL UKai CN');
 						doc.setFontSize(14); //in pt
 						doc.text(docTitle, 105, 16, 'center'); // A4_width/2 = 210 mm/2 = 105
 					// write page number
@@ -146,8 +146,8 @@ $(document).ready(function(){
 						doc.text(charPinyin[i], xUpLeft, thisLineYUpLeft-1.5); // "-1.5" looks better
 					}
 				// single characters along the character line
-				doc.setFont('Source Han Serif');
-				doc.setFontSize(38); //in pt
+				doc.setFont('AR PL UKai CN');
+				doc.setFontSize(40); //in pt
 				for(j = 0; j < 12; ++j){ // 11 chars per line
 					// gridlines - part 2
 						// @TODO
@@ -249,11 +249,58 @@ $(document).ready(function(){
 		console.log(res);
 	});*/
 	
-	// Testin getPinyin
+	// Testing getPinyin
 	/*getPinyin("影", function(res){
 		console.log(res);
 	})*/
+	
+	/*
+	*	Hide filename setting and only show it if the user chooses "download"
+	*	https://stackoverflow.com/a/4643760
+	*/
+	// Hide the div using jQuery rather than CSS, as if JavaScirpt is disabled
+	// the user should still be able to access the inputs.
+	$('#filenameTr').hide();
+	$('input:radio[name="way-of-retr"]').change(function() {
+		if (this.checked) {
+			if (this.value == 'download')
+				$('#filenameTr').show();
+			else
+				$('#filenameTr').hide();
+		}
+	});
 });
 
-// nice testing chars: 反對,共和}黨風格。混搭風格我爱你馬毌，öän
+// nice testing chars: 国國爱愛反對,共和}黨風格。混搭風格我爱你馬毌，öän
 // (last 2 signs are japanese)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

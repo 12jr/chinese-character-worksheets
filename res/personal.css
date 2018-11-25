@@ -1,0 +1,13 @@
+/* this is the customized style for the app - feel free to change it to your own design */
+#characters, #doc-title {
+	width: calc(100% - 5px);
+}
+#doc-filename {
+	min-width: calc(50%);
+}
+.formtable tr td:nth-child(1){
+	font-weight: bold;
+}
+.annotation:before {
+	content: '※';
+}

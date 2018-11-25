@@ -5,53 +5,11 @@
 	<title>Chinese character writing worksheet creation tool</title>
 	<link rel="stylesheet" href="res/normalize.css">
 	<link rel="stylesheet" href="res/loadingdots.css">
-	<style>
-		* {
-			font-family: sans-serif;
-		}
-		body {
-			padding: 0 15px;
-		}
-		.formtable {
-			border-collapse: collapse;
-		}
-		.formtable td {
-			vertical-align: top;
-			border-bottom: 1px solid lightgrey;
-			padding: 4px 0 4px 3px;
-		}
-		.formtable td:nth-of-type(1) {
-			text-align: right;
-		}
-		.formtable tr {
-		}
-		.annotation {
-			font-style: italic;
-			color: #444;
-			font-size: 0.9em;
-		}
-		sup a {
-			font-weight: bold;
-			text-decoration: none;
-			padding-left: 2px;
-		}
-		.status {
-			display: none;
-			font-style: italic;
-		}
-		#mainstatus {
-			font-weight: bold;
-		}
-		.errorStatus {
-			color: #d00;
-		}
-		label {
-			display: inline-block;
-		}
-	</style>
+	<link rel="stylesheet" href="res/default.css">
+	<link rel="stylesheet" href="res/personal.css">
 	<script src="res/jquery.js"></script>
-	<script src="res/fontsAsBase64.js"></script>
-	<script src="res/fontsAsBase64_pinyin.js"></script>
+	<script src="res/fontsB64/noto-sans-light.js"></script>
+	<script src="res/fontsB64/ar-pl-ukai-cn-ff-ttf.js"></script>
 	<script src="res/jspdf.js"></script>
 	<script src="res/script.js"></script>
 </head>
@@ -73,7 +31,7 @@
 				<td>
 					<textarea id="characters" style="font-size:17pt;"></textarea>
 					<br/>
-					<span class="annotation">※Insert the characters in the order you want them to appear in the pdf. There will be 11 characters per page.</span>
+					<span class="annotation">Insert the characters in the order you want them to appear in the pdf. There will be 11 characters per page.</span>
 					<br/>
 					<input type="checkbox" id="removeDuplicates" name="removeDuplicates" checked> <label for="removeDuplicates">Remove duplicates</label>
 				</td>
@@ -87,7 +45,7 @@
 					&thinsp;
 					<input type="radio" id="so-jp" name="strokeOrder" value="jp" disabled> <label for="so-jp" style="color:gray">Japan</label>
 					<br/>
-					<span class="annotation">※Only China stroke orders are available so far.</span>
+					<span class="annotation">Only China stroke orders are available so far.</span>
 				</td>
 			</tr>
 			<tr>
@@ -107,14 +65,6 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="doc-filename">Resulting PDF filename:</label></td>
-				<td>
-					<input type="text" id="doc-filename"/>.pdf
-					<br/>
-					<span class="annotation">※Leave this empty to create the filename automatically from the document title you entered.</span>
-					</td>
-			</tr>
-			<tr>
 				<td>Way of receiving PDF:</td>
 				<td>
 					<input type="radio" id="way-of-retr-download" name="way-of-retr" value="download" checked> <label for="way-of-retr-download">Download</label>
@@ -122,9 +72,15 @@
 					<input type="radio" id="way-of-retr-window" name="way-of-retr" value="window"> <label for="way-of-retr-window">Open in new window/tab</label><sup id="ref4-origin"><a href="#ref4">4</a>,</sup><sup id="ref5-origin"><a href="#ref5">5</a></sup>
 					&thinsp;
 					<input type="radio" id="way-of-retr-cur-window" name="way-of-retr" value="currentWindow"> <label for="way-of-retr-cur-window">Open in current window/tab</label><sup id="ref5-origin2"><a href="#ref5">5</a></sup>
-					<!--<br/>
-					<span class="annotation">※Only Download is available so far, as the "Open in new window/tab" doesn't seem to work so far.</span>-->
 				</td>
+			</tr>
+			<tr id="filenameTr">
+				<td><label for="doc-filename">Resulting PDF filename:</label></td>
+				<td>
+					<input type="text" id="doc-filename"/>.pdf
+					<br/>
+					<span class="annotation">Leave this empty to create the filename automatically from the document title you entered.</span>
+					</td>
 			</tr>
 			<tr>
 				<td><span id="mainstatus" class="status"></span></td>
@@ -162,6 +118,7 @@
 		<li>If it says "PDF created" but you did not get the PDF, try choose a different option under "Way of receiving PDF". "Download" usually works. Also refer to <a href="#ref4">Ref. 4</a>.</li>
 		<li>Try to choose different characters and leave all the other fields blank / at their default value.
 			<ul><li>If this solves your issue, please report about both the input that did not work and the one that did on <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or by <a href="https://github.com/12jr/" target="_blank">contacting me</a>.</li></ul>
+		<li>There is some character you entered which is not written on the worksheet? Please post that character(s) on <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or <a href="https://github.com/12jr/" target="_blank">contact me</a>. The reason is probably the font we (have to) use, see <a href="#About-AR-PL-Ukai-CN">here</a>.</li>
 		</li>
 	</ul>
 	If those suggestions did not help you, post your question to <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or <a href="https://github.com/12jr/" target="_blank">contact me</a>.
@@ -175,7 +132,14 @@
 		<li><a href="https://necolas.github.io/normalize.css/" target="_blank">normalize.css</a> for the looks.</li>
 		<li><a href="https://jquery.com/" target="_blank">jQuery</a> for coding.</li>
 		<li><a href="https://codepen.io/vkjgr/pen/gbPaVx" target="_blank">Some code</a> for fancy "loading dots".</li>
-		<li><a href="https://source.typekit.com/source-han-serif/" target="_blank">Source Han Serif</a> (<a href="https://github.com/adobe-fonts/source-han-serif/releases/tag/1.001R" target="_blank">Release 1.001</a>) as a Chinese font.</li>
+		<li id="About-AR-PL-Ukai-CN">
+			<a href="https://www.freedesktop.org/wiki/Software/CJKUnifonts/" target="_blank">AR PL UKai CN</a> (<a href="https://github.com/saiswa/free-fonts/blob/master/PCLinuxOSFonts/AR%20PL%20UKai%20CN%2C%20Regular.ttc" target="_blank">available here</a>) as a Chinese font.
+			<ul>
+				<li>Note that this is an open source project, therefore we are dependent on open source fonts (unlike said paid website, who use <a href="https://docs.microsoft.com/en-us/typography/font-list/kaiti" target="_blank">Microsoft's proprietary KaiTi</a>). AR PL UKai does not seem to be developed anymore. Yet, AR PL UKai CN seems to be the <a href="https://en.wikipedia.org/wiki/List_of_CJK_fonts#Regular_script" target="_blank">best choice</a> in open source <a href="https://en.wikipedia.org/wiki/Regular_script" target="_blank">regular script</a> fonts.
+					<br/>
+					Do you know some better open source, regular script font? Please <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">file an issue</a> suggesting it!</li>
+				</ul>
+		</li>
 		<li><a href="https://www.google.com/get/noto/#sans-lgc" target="_blank">Noto Sans</a> as a Pīnyīn font.</li>
 	</ul>
 	Thank you to everybody who contributed to those projects and thereby made this one possible!
