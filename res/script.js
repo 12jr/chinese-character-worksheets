@@ -196,7 +196,12 @@ $(document).ready(function(){
 				charactersString = characters.join("");
 			}
 			var strokeOrder = $('input[name=strokeOrder]:checked').val();
-			var numberOfGrayscaleSigns = Number($("#number-gray-signs").val());
+			var numberOfGrayscaleSigns = // 0 <= numberOfGrayscaleSigns <= 10
+				Math.min(
+					10
+					Math.max(
+						0,
+						Number($("#number-gray-signs").val())));
 			var writePinyin = $("#write-pinyin")	.is(':checked');
 			var useGridlines = $("#use-gridlines")	.is(':checked');
 			var writeName = $("#write-name")		.is(':checked');
