@@ -10,7 +10,7 @@
 
 Except for those two features, the tool is able to run offline.
 ## For developers
-Please also refer to the [wiki](https://github.com/12jr/chinese-character-worksheets/wiki).
+Please refer to the [wiki](https://github.com/12jr/chinese-character-worksheets/wiki).
 ### Used libraries, APIs, fonts etc.
 *   The [Wikimedia Commons Stroke Order Project](https://commons.wikimedia.org/wiki/Commons:Stroke_Order_Project) as the source of the stroke order pictures,  
     the [Wikimedia Commons API](https://www.mediawiki.org/wiki/API:Main_page) to get those pictures, and  
