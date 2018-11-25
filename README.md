@@ -6,7 +6,7 @@
 3.  Open `index.html`.
 ### Consider before downloading
 *  To add stroke order images (like [this one](https://upload.wikimedia.org/wikipedia/commons/b/b6/%E6%88%91-bw.png)) to your worksheet, this tool has to be able to reach [wikimedia.org](wikimedia.org) and [cors.io](https://cors.io/).
-*  To add [Pīnyīn](https://en.wikipedia.org/wiki/Pinyin) to your worksheet, this tool has to be able to reach [https://glosbe.com/](glosbe.com) and [cors.io](https://cors.io/).
+*  To add [Pīnyīn](https://en.wikipedia.org/wiki/Pinyin) to your worksheet, this tool has to be able to reach [glosbe.com](https://glosbe.com/) and [cors.io](https://cors.io/).
 
 Except for those two features, the tool is able to run offline.
 ## For developers
