@@ -89,7 +89,6 @@ $(document).ready(function(){
 			filename = filename == "" ? "my-chinese-exercise" : filename;
 		// notify user
 			$("#substatus").html("Starting to create your PDF");
-		// Ich glaube pdfmake reicht nicht, insbes. nicht für die Gitterlinien (+ Font-Einbindung wird bisschen kompliziert)
 		// new jsPDF-doc
 			var doc = new jsPDF();
 		// import font to jsPDF
