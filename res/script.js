@@ -1,34 +1,27 @@
 $(document).ready(function(){
 	/*
 	*	returns URL of stroke order picture for passed character.
-	*	Boolean reallyDoIt:
-	*		if true: will do request
-	*		if false: will just return ""
-	*		(Note: This is part of a dirty fix to issue #3)
 	*	String character = the character you wanna get the image to
 	*	String countryVersion = [ch | tw | jp] (=> bw / tbw / jbw)
 	*		→ this param is ignored as of today. (@TODO)
 	*	Function callback(result) = function that will be called after getWikiSOImageUrl is done
 	*/
-	function getWikiSOImageUrl(reallyDoIt, character, countryVersion, callback){
-		if(reallyDoIt){
-			var ending = "bw"; // @TODO handle countryVersion to get different ending
-			var requestUrl = "https://cors.io/?https://commons.wikimedia.org/w/api.php?action=query&titles=Image:"
-					+ encodeURI(character)
-					+ "-"
-					+ ending
-					+ ".png&prop=imageinfo&iiprop=url&format=json";
-					// also see https://stackoverflow.com/questions/8363531/accessing-main-picture-of-wikipedia-page-by-api
-			$.getJSON(requestUrl, function(data){
-				Object.keys(data.query.pages).forEach(function(key) { // there will be only 1 object in the array
-					if(key == "-1") // if the database doesn't have the image...
-						callback(""); // ...we will just leave the url empty (and handle that later)
-					else
-						callback(data.query.pages[key]["imageinfo"][0]["url"]); // return the url of the png image
-				});
+	function getWikiSOImageUrl(character, countryVersion, callback){
+		var ending = "bw"; // @TODO handle countryVersion to get different ending
+		var requestUrl = "https://cors.io/?https://commons.wikimedia.org/w/api.php?action=query&titles=Image:"
+				+ encodeURI(character)
+				+ "-"
+				+ ending
+				+ ".png&prop=imageinfo&iiprop=url&format=json";
+				// also see https://stackoverflow.com/questions/8363531/accessing-main-picture-of-wikipedia-page-by-api
+		$.getJSON(requestUrl, function(data){
+			Object.keys(data.query.pages).forEach(function(key) { // there will be only 1 object in the array
+				if(key == "-1") // if the database doesn't have the image...
+					callback(""); // ...we will just leave the url empty (and handle that later)
+				else
+					callback(data.query.pages[key]["imageinfo"][0]["url"]); // return the url of the png image
 			});
-		} else
-			callback("");
+		});
 	}
 	
 	/*
@@ -59,7 +52,7 @@ $(document).ready(function(){
 	/*
 	*	returns Pinyin for passed character string.
 	*	String character = the character(s) you wanna get the image to
-	*	Function callback(result) = function that will be called after getPinyin is done
+	*	Function callback(result) = function that will be called after getWikiSOImageUrl is done
 	*/
 	function getPinyin(character, callback){
 		var requestUrl = "https://cors.io/?https://glosbe.com/transliteration/api?from=Han&dest=Latin&text="
@@ -83,7 +76,7 @@ $(document).ready(function(){
 	*	writePinyin, useGridlines, writeName : Booleans
 	*	docTitle, filename, wayOfRetrieval : Strings
 	*/
-	function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval){
+	function createPdf(docTitle, characters, numberOfGrayscaleSigns, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval){
 		// make filename "filesystem-secure"
 			filename = filename.replace(/[^a-z0-9öäüß\-\_\u4E00-\u9FFF]/gi, '');
 			filename = filename == "" ? "my-chinese-exercise" : filename;
@@ -138,7 +131,7 @@ $(document).ready(function(){
 				// gridlines - part 1
 					// @TODO
 				// paste Wikimedia Stroke Order Images
-					if(pasteSoImages && charPicAvailable[i]) { // if user wants stroke order images AND if Wikimedia provides stroke order image
+					if(charPicAvailable[i]) { // if Wikimedia provides stroke order image
 						imgProp = doc.getImageProperties(charPicBase64[i]);
 						doc.addImage(charPicBase64[i], 'PNG', xUpLeft + 19, yUpLeft + (i%charsPerPage) * charLineDistance - 7, imgProp.width * 6.8 / imgProp.height, 6.8, "", "NONE", 0);
 					}
@@ -149,7 +142,7 @@ $(document).ready(function(){
 				// write pinyin
 					if(writePinyin){
 						doc.setFont('Noto Sans');
-						doc.setFontSize(12); //in pt
+						doc.setFontSize(11); //in pt
 						doc.text(charPinyin[i], xUpLeft, thisLineYUpLeft-1.5); // "-1.5" looks better
 					}
 				// single characters along the character line
@@ -178,7 +171,7 @@ $(document).ready(function(){
 			else
 				doc.save(filename + '.pdf');
 			$("#mainstatus").html('PDF created. ');
-			$("#substatus").removeClass("working").html('<a href="index.html">Start from the beginning for a new worksheet!</a><br/>(You can also press F5 in order to keep the values you entered in the form.)');
+			$("#substatus").removeClass("working").html('<a href="index.html">Start from the beginning for a new worksheet!</a>');
 	}
 	
 	/*
@@ -205,14 +198,13 @@ $(document).ready(function(){
 			var strokeOrder = $('input[name=strokeOrder]:checked').val();
 			var numberOfGrayscaleSigns = // 0 <= numberOfGrayscaleSigns <= 10
 				Math.min(
-					10,
+					10
 					Math.max(
 						0,
 						Number($("#number-gray-signs").val())));
-			var pasteSoImages = $("#paste-so-images")	.is(':checked');
-			var writePinyin = $("#write-pinyin")		.is(':checked');
-			var useGridlines = $("#use-gridlines")		.is(':checked');
-			var writeName = $("#write-name")			.is(':checked');
+			var writePinyin = $("#write-pinyin")	.is(':checked');
+			var useGridlines = $("#use-gridlines")	.is(':checked');
+			var writeName = $("#write-name")		.is(':checked');
 			var filename = $("#doc-filename").val() == "" ? docTitle : $("#doc-filename").val();
 			var wayOfRetrieval = $('input[name=way-of-retr]:checked').val();
 		// fetch all "character stroke order picture urls"
@@ -225,7 +217,7 @@ $(document).ready(function(){
 		var picUrlCallbacksRemaining = characters.length; // let's count how many picture urls are still missing
 		for (i = 0; i < characters.length; i++) {
 			var currentI = i; // to avoid side effects....
-			getWikiSOImageUrl(pasteSoImages, characters[i], strokeOrder, function(v){ // function(v) is a dirty trick to preserve currentI, see https://stackoverflow.com/a/7053992
+			getWikiSOImageUrl(characters[i], strokeOrder, function(v){ // function(v) is a dirty trick to preserve currentI, see https://stackoverflow.com/a/7053992
 				return function(r){
 					charPicUrl[currentI] = r; // save url
 						// get base64 of the image
@@ -244,11 +236,11 @@ $(document).ready(function(){
 										getPinyin(charactersString, function(r){
 											charPinyin = r.split(" "); // save pinyin
 											// create the pdf now
-											createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval);
+											createPdf(docTitle, characters, numberOfGrayscaleSigns, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval);
 										});
 									} else {
 										// create the pdf now
-										createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval);
+										createPdf(docTitle, characters, numberOfGrayscaleSigns, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval);
 									}
 								}
 						}}(v));
@@ -258,7 +250,7 @@ $(document).ready(function(){
 	});
 	
 	// Testing getWikiSOImageUrl
-	/*getWikiSOImageUrl(true, "影", "ch", function(res){
+	/*getWikiSOImageUrl("影","ch", function(res){
 		console.log(res);
 	});*/
 	
