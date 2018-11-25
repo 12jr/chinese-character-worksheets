@@ -5,7 +5,10 @@
 2.  Unpack the downloaded file.
 3.  Open `index.html`.
 ### Consider before downloading
-This tool requires an internet connection to work. It has to be able to reach wikimedia.org and cors.io (and, if you want Pīnyīn added in your PDF, glosbe.com).
+*  To add stroke order images (like [this one](https://upload.wikimedia.org/wikipedia/commons/b/b6/%E6%88%91-bw.png)) to your worksheet, this tool has to be able to reach [wikimedia.org](wikimedia.org) and [cors.io](https://cors.io/).
+*  To add [Pīnyīn](https://en.wikipedia.org/wiki/Pinyin) to your worksheet, this tool has to be able to reach [https://glosbe.com/](glosbe.com) and [cors.io](https://cors.io/).
+
+Except for those two features, the tool is able to run offline.
 ## For developers
 ### What is it with those Base64 font files?
 In [`res/fontsB64`](res/fontsB64), there are some files which assign Base64 encoded `ttf`/`ttc` files to Javascript variables. They are used by the PDF creation library (jsPDF) to display Pīnyīn and Chinese characters.
