@@ -70,8 +70,8 @@ $(document).ready(function(){
 				callback(data.text); // return the pinyin of the character
 			} else {
 				console.error("Error occured when fetching Pīnyīn for character " + character + " from glosbe.com. Check if you're connected to the internet and are able to reach https://glosbe.com/a-api and https://cors.io/.");
+				$("#statusTr").addClass("error").removeClass("processing");
 				$("#substatus").html("<b>Error</b> occured when fetching Pīnyīn for character " + character + " from glosbe.com. Check if you're connected to the internet and are able to reach https://glosbe.com/a-api and https://cors.io/. Please read the <a href='#sec:errorHandling'>Error Handling section</a> below.");
-				$("#substatus").addClass("errorStatus");
 			}
 		});
 	}
@@ -190,6 +190,7 @@ $(document).ready(function(){
 		// Hide button and display status
 			$("#formFieldset *").prop("disabled", true); // doesnt work
 			$("#create-pdf").hide();
+			$("#statusTr").addClass("processing");
 			$("#mainstatus").html("Processing: ");
 			$("#substatus").addClass("working").html("Reading user input");
 			$(".status").show();

@@ -11,3 +11,16 @@
 .annotation:before {
 	content: '※';
 }
+#statusTr.processing {
+	background-color: #EFFAB4;
+}
+#statusTr.error {
+	background-color: #F56991;
+	color: #fff;
+}
+#statusTr.error #substatus {
+	color: #F56991;
+}
+#statusTr.error #mainstatus {
+	background-color: #FFC48C;
+}

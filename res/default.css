@@ -35,7 +35,7 @@ sup a {
 #mainstatus {
 	font-weight: bold;
 }
-.errorStatus {
+#statusTr.error #substatus {
 	color: #d00;
 }
 label {

@@ -18,7 +18,7 @@
 	<p>
 	Create a pdf (A4 format) for practicing Chinese character writing. Internet connection is required.
 	<br/>
-	If you are new to this tool, just fill out the first two fields and click "Create PDF!" to get a glimpse of what it does.
+	If you are <b>new to this tool</b>, just fill out the first two fields and click "Create PDF!" to get a glimpse of what it does.
 	</p>	
 	<fieldset id="formFieldset">
 		<table class="formtable">
@@ -31,7 +31,7 @@
 				<td>
 					<textarea id="characters" style="font-size:17pt;"></textarea>
 					<br/>
-					<span class="annotation">Insert the characters in the order you want them to appear in the pdf. There will be 11 characters per page.</span>
+					<span class="annotation">Insert the characters in the order you want them to appear in the pdf. There will be 11 characters per page. The application will remove all characters except Chinese ones (including punctuation and Latin letters)</span>
 					<br/>
 					<input type="checkbox" id="removeDuplicates" name="removeDuplicates" checked> <label for="removeDuplicates">Remove duplicates</label>
 				</td>
@@ -57,7 +57,7 @@
 			<tr>
 				<td>More options:</td>
 				<td>
-					<input type="checkbox" id="paste-so-images" name="paste-so-images" checked> <label for="paste-so-images">Add stroke orders to the characters (if available)</label>
+					<input type="checkbox" id="paste-so-images" name="paste-so-images" checked> <label for="paste-so-images">Add stroke orders to the characters</label>
 					<br/>
 					<input type="checkbox" id="write-pinyin" name="write-pinyin" checked> <label for="write-pinyin">Add Pīnyīn to the characters</label>
 					<br/>
@@ -84,7 +84,7 @@
 					<span class="annotation">Leave this empty to create the filename automatically from the document title you entered.</span>
 					</td>
 			</tr>
-			<tr>
+			<tr id="statusTr">
 				<td><span id="mainstatus" class="status"></span></td>
 				<td>
 					<input type="button" id="create-pdf" value="Create PDF!"/>
