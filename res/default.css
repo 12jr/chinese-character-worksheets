@@ -28,6 +28,9 @@ sup a {
 	text-decoration: none;
 	padding-left: 2px;
 }
+#characters {
+	font-size:17pt;
+}
 .status {
 	display: none;
 	font-style: italic;
