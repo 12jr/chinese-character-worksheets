@@ -284,37 +284,3 @@ $(document).ready(function(){
 		}
 	});
 });
-
-// nice testing chars: 国國爱愛反對,共和}黨風格。混搭風格我爱你馬毌，öän
-// (last 2 signs are japanese)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
