@@ -10,6 +10,7 @@
 
 Except for those two features, the tool is able to run offline.
 ## For developers
+Please also refer to the [wiki](https://github.com/12jr/chinese-character-worksheets/wiki).
 ### What is it with those Base64 font files?
 In [`res/fontsB64`](res/fontsB64), there are some files which assign Base64 encoded `ttf`/`ttc` files to Javascript variables. They are used by the PDF creation library (jsPDF) to display Pīnyīn and Chinese characters.
 Currently, we use [AR PL UKai CN](https://www.freedesktop.org/wiki/Software/CJKUnifonts/) ([available here](https://github.com/saiswa/free-fonts/blob/master/PCLinuxOSFonts/AR%20PL%20UKai%20CN%2C%20Regular.ttc)) as a Chinese font.
