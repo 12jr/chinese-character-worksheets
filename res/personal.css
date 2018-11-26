@@ -1,6 +1,12 @@
 /* this is the customized style for the app - feel free to change it to your own design */
 body {
-	background-color: #ADD8E6; /* html "lightblue" */
+	background-color: #CC8F8F;
+}
+a {
+	color: rgba(0,0,0,0.65);
+}
+a:hover {
+	color: rgba(0,0,0,1);
 }
 hr {
 	border: 0;
@@ -21,7 +27,7 @@ hr {
 	min-width: calc(50%);
 }
 #formFieldset {
-	background-color: rgba(255,255,255,0.3);
+	background-color: rgba(255,255,255,0.35);
 	border: 0;
 	margin: 0;
 }
