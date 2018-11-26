@@ -210,8 +210,9 @@ $(document).ready(function(){
 				doc.output('datauri');
 			else
 				doc.save(filename + '.pdf');
-			$("#mainstatus").html('PDF created. ');
-			$("#substatus").removeClass("working").html('<a href="index.html">Start from the beginning for a new worksheet!</a><br/>(You can also press F5 in order to keep the values you entered in the form.)');
+			$("#statusTr").removeClass("processing");
+			$("#mainstatus").html('PDF created.');
+			$("#substatus").html('<a href="index.html">Start from the beginning for a new worksheet!</a><br/>(You can also press F5 in order to keep the values you entered in the form.)');
 	}
 	
 	/*
@@ -220,11 +221,11 @@ $(document).ready(function(){
 	*/
 	$("#create-pdf").click(function(){
 		// Hide button and display status
-			$("#formFieldset *").prop("disabled", true); // doesnt work
+			$("#formFieldset *").prop("disabled", true);
 			$("#create-pdf").hide();
 			$("#statusTr").addClass("processing");
-			$("#mainstatus").html("Processing: ");
-			$("#substatus").addClass("working").html("Reading user input");
+			$("#mainstatus").html("Processing:");
+			$("#substatus").html("Reading user input");
 			$(".status").show();
 		// Read parameters ("p") from user input
 			var docTitle = $("#doc-title").val();
@@ -235,6 +236,12 @@ $(document).ready(function(){
 			if($("#removeDuplicates").is(':checked')){ // if user wants duplicates to be removed => remove them!
 				characters = $.unique(characters);
 				charactersString = characters.join("");
+			}
+			if(charactersString == ""){
+				$("#statusTr").addClass("error").removeClass("processing");
+				$("#mainstatus").html('Error:');
+				$("#substatus").html('You did not enter any Chinese characters (and maybe no characters at all) under "Characters to practice". So: <a href="index.html">Start from the beginning for a new worksheet!</a><br/>(You can also press F5 in order to keep the values you entered in the form.)<br/><br/>If you did enter Chinese characters, please post that character(s) on <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or <a href="https://github.com/12jr/" target="_blank">contact me</a>.');
+				return;
 			}
 			var strokeOrder = $('input[name=strokeOrder]:checked').val();
 			var numberOfGrayscaleSigns = // 0 <= numberOfGrayscaleSigns <= 10

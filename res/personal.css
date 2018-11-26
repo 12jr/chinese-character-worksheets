@@ -45,13 +45,13 @@ input[type="radio"]:checked+label, input[type="checkbox"]:checked+label {
 }
 #statusTr.error {
 	background-color: #F56991;
-	color: #fff;
+	color: #000;
 }
 #statusTr.error #substatus {
-	color: #F56991;
+	color: #000;
 }
 #statusTr.error #mainstatus {
-	background-color: #FFC48C;
+	background-color: #F56991;
 }
 @media only screen and (max-width: 600px) {
     body {

@@ -69,7 +69,7 @@ input:disabled+label {
 * LOADING DOTS
 * this is from https://codepen.io/vkjgr/pen/gbPaVx
 */
-	.loadingDotsBehind.working:after {
+	.processing .loadingDotsBehind:after {
 	  content: '.';
 	  animation: dots 1s steps(5, end) infinite;}
 
