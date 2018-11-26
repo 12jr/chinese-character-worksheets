@@ -1,7 +1,5 @@
 # Tool to create worksheets for Chinese character writing practice
 ## For users
-# Tool to create worksheets for Chinese character writing practice
-## For users
 ### How can I create worksheets?
 1.  Head to the [Releases page](https://github.com/12jr/chinese-character-worksheets/releases) and download the latest version by clicking on `Chinese_Character_Worksheet_Tool.html` on the top.
 2.  Open the downloaded file and follow the instructions.
