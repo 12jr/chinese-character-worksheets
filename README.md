@@ -3,6 +3,8 @@
 ### How can I create worksheets?
 1.  Head to the [Releases page](https://github.com/12jr/chinese-character-worksheets/releases) and download the latest version by clicking on `Chinese_Character_Worksheet_Tool.html` on the top.
 2.  Open the downloaded file and follow the instructions.
+
+This also works on your mobile phone or tablet!
 ### Consider before downloading
 *  To add stroke order images (like [this one](https://upload.wikimedia.org/wikipedia/commons/b/b6/%E6%88%91-bw.png)) to your worksheet, this tool has to be able to reach [wikimedia.org](wikimedia.org) and [cors.io](https://cors.io/).
 *  To add [Pīnyīn](https://en.wikipedia.org/wiki/Pinyin) to your worksheet, this tool has to be able to reach [glosbe.com](https://glosbe.com/) and [cors.io](https://cors.io/).
