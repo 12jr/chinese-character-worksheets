@@ -1,17 +1,12 @@
 # Tool to create worksheets for Chinese character writing practice
 ## For users
+# Tool to create worksheets for Chinese character writing practice
+## For users
 ### How can I create worksheets?
+1.  Head to the [Releases page](https://github.com/12jr/chinese-character-worksheets/releases) and download the latest version by clicking on `Chinese_Character_Worksheet_Tool.html` on the top.
+2.  Open the downloaded file and follow the instructions.
 
-You can either...
-*  [Use the tool **online** on worksheets.dx.am](http://worksheets.dx.am/).
-
-or...
-
-*  Use it **locally on your device**:
-   1.  Head to the [Releases page](https://github.com/12jr/chinese-character-worksheets/releases) and download the latest version by clicking on `Chinese_Character_Worksheet_Tool.html` on the top.
-   2.  Open the downloaded file and follow the instructions.
-
-Both online and local use also work on your mobile phone or tablet! If you're not sure which one to choose, [read more about pros and cons](https://github.com/12jr/chinese-character-worksheets/wiki/User-FAQ:-Should-I-use-the-tool-on-the-website-or-locally-on-my-computer%3F).
+This also works on your mobile phone or tablet!
 
 ### What do I need to run this tool?
 *  A browser with enabled Javascript. This tool was developed with and for Mozilla Firefox, thus Firefox is recommended.
