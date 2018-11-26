@@ -162,7 +162,7 @@ $(document).ready(function(){
 				doc.setFontSize(40); //in pt
 				for(j = 0; j < 12; ++j){ // 11 chars per line
 					// gridlines - part 2
-						if(useGridlines){
+						if(useGridlines && j < 11){
 							doc.setDrawColor("D0D0D0");
 							// vertical line per character
 							doc.line(
