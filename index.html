@@ -29,9 +29,7 @@
 				<td><label for="characters">Characters to practice:</label></td>
 				<td>
 					<textarea id="characters"></textarea>
-					<br/>
 					<span class="annotation">Insert the characters in the order you want them to appear in the pdf. There will be 11 characters per page. The application will remove all characters except Chinese ones (including punctuation and Latin letters)</span>
-					<br/>
 					<input type="checkbox" id="removeDuplicates" name="removeDuplicates" checked> <label for="removeDuplicates">Remove duplicates</label>
 				</td>
 			</tr>
@@ -39,11 +37,8 @@
 				<td>Stroke order<sup id="ref1-origin"><a href="#ref1">1</a></sup>:</td>
 				<td>
 					<span class="checkRadioBlock"><input type="radio" id="so-ch" name="strokeOrder" value="ch" checked> <label for="so-ch">China</label></span>
-					&thinsp;
-					<span class="checkRadioBlock"><input type="radio" id="so-tw" name="strokeOrder" value="tw" disabled> <label for="so-tw" style="color:gray">Taiwan</label></span>
-					&thinsp;
-					<span class="checkRadioBlock"><input type="radio" id="so-jp" name="strokeOrder" value="jp" disabled> <label for="so-jp" style="color:gray">Japan</label></span>
-					<br/>
+					<span class="checkRadioBlock"><input type="radio" id="so-tw" name="strokeOrder" value="tw" disabled> <label for="so-tw">Taiwan</label></span>
+					<span class="checkRadioBlock"><input type="radio" id="so-jp" name="strokeOrder" value="jp" disabled> <label for="so-jp">Japan</label></span>
 					<span class="annotation">Only China stroke orders are available so far.</span>
 				</td>
 			</tr>
@@ -69,9 +64,7 @@
 				<td>Way of receiving PDF:</td>
 				<td>
 					<span class="checkRadioBlock"><input type="radio" id="way-of-retr-download" name="way-of-retr" value="download" checked> <label for="way-of-retr-download">Download</label></span>
-					&thinsp;
 					<span class="checkRadioBlock"><input type="radio" id="way-of-retr-window" name="way-of-retr" value="window"> <label for="way-of-retr-window">Open in new window/tab</label><sup id="ref4-origin"><a href="#ref4">4</a>,</sup><sup id="ref5-origin"><a href="#ref5">5</a></sup></span>
-					&thinsp;
 					<span class="checkRadioBlock"><input type="radio" id="way-of-retr-cur-window" name="way-of-retr" value="currentWindow"> <label for="way-of-retr-cur-window">Open in current window/tab</label><sup id="ref5-origin2"><a href="#ref5">5</a></sup></span>
 				</td>
 			</tr>
@@ -79,7 +72,6 @@
 				<td><label for="doc-filename">Resulting PDF filename:</label></td>
 				<td>
 					<input type="text" id="doc-filename"/>.pdf
-					<br/>
 					<span class="annotation">Leave this empty to create the filename automatically from the document title you entered.</span>
 					</td>
 			</tr>
@@ -102,8 +94,10 @@
 			<dd>Per character, there are 10 squares for students to practice writing the sign (and one square in front of them displaying the sign). In how many of those 10 squares should the sign be written in grayscale to support practicing? Lower numbers for more advanced students.</dd>
 		<dt id="ref3">[<a href="#ref3-origin">3</a>]</dt>
 			<dd>
-				<table id="gridlineExampleTable">
-					<tr>
+				<div id="gridlineExampleTable">
+					<div>With gridlines:<br/><img src="res/img/with-gridlines.png" alt="With gridlines"/></div><div>vs.</div>
+					<div><span class="only-mobile">vs. </span>without gridlines:<br/><img src="res/img/without-gridlines.png" alt="Without gridlines"/></div>
+					<!--<tr>
 						<td>With gridlines:</td>
 						<td rowspan="2">vs.</td>
 						<td>Without gridlines:</td>
@@ -111,8 +105,8 @@
 					<tr>
 						<td><img src="res/img/with-gridlines.png" alt="With gridlines"/></td>
 						<td><img src="res/img/without-gridlines.png" alt="Without gridlines"/></td>
-					</tr>
-				</table>
+					</tr>-->
+				</div>
 			</dd>
 		<dt id="ref4">[<a href="#ref4-origin">4</a>]</dt>
 			<dd>You might have to allow pop-ups for this page. Further, if this settings results in a new window or tab depends on your browser (settings).</dd>

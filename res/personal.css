@@ -1,4 +1,12 @@
 /* this is the customized style for the app - feel free to change it to your own design */
+body {
+	background-color: #ADD8E6; /* html "lightblue" */
+}
+hr {
+	border: 0;
+	height: 2px;
+	background-color: #000;
+}
 #characters {
 	height: 20pt;
 	min-height: 20pt;
@@ -12,11 +20,19 @@
 #doc-filename {
 	min-width: calc(50%);
 }
-.formtable tr td:nth-child(1){
+#formFieldset {
+	background-color: rgba(255,255,255,0.3);
+	border: 0;
+	margin: 0;
+}
+.formtable td:nth-child(1){
 	font-weight: bold;
 }
 .annotation:before {
 	content: '※';
+}
+input[type="radio"]:checked+label, input[type="checkbox"]:checked+label {
+	font-style: italic;
 }
 #statusTr.processing {
 	background-color: #EFFAB4;
@@ -30,4 +46,29 @@
 }
 #statusTr.error #mainstatus {
 	background-color: #FFC48C;
+}
+@media only screen and (max-width: 600px) {
+    body {
+        padding: 0 7px 7px 7px;
+    }
+	#formFieldset {
+		margin: -1px;
+	}
+	.checkRadioBlock {
+		display: block;
+		margin: 0;
+	}
+	#gridlineExampleTable, #gridlineExampleTable div:nth-child(3) {
+		display: block;
+	}
+	#gridlineExampleTable div:nth-child(1) {
+		display: inline-block;
+		vertical-align: top;
+	}
+	#gridlineExampleTable div:nth-child(2) {
+		display: none;
+	}
+	.only-mobile {
+		display: initial;
+	}
 }

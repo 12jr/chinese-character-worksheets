@@ -3,25 +3,25 @@
 	font-family: sans-serif;
 }
 body {
-	padding: 0 15px;
+	padding: 0 15px 15px 15px;
 }
 .formtable {
 	border-collapse: collapse;
 }
 .formtable td {
 	vertical-align: top;
-	border-bottom: 1px solid lightgrey;
-	padding: 4px 0 4px 3px;
+	border-bottom: 1px solid rgba(0,0,0,0.5);
+	padding: 4px 0;
 }
 .formtable td:nth-of-type(1) {
 	text-align: right;
-}
-.formtable tr {
+	padding: 4px 10px 4px 0;
 }
 .annotation {
 	font-style: italic;
-	color: #444;
+	opacity: .8;
 	font-size: 0.9em;
+	display: block;
 }
 sup a {
 	font-weight: bold;
@@ -43,12 +43,28 @@ sup a {
 }
 .checkRadioBlock {
 	display: inline-block;
+	margin: 0 8px 0 0;
 }
+input:disabled+label {
+	opacity: .6;
+}
+/*
 #gridlineExampleTable td {
 	padding: 0 5px 0 0;
+}*/
+#gridlineExampleTable {
+	display: table;
+}
+#gridlineExampleTable div {
+	display: table-cell;
+	vertical-align: middle;
+	padding: 0 8px 0 0;
 }
 #gridlineExampleTable img {
 	max-height: 65px;
+}
+.only-mobile {
+	display: none;
 }
 /*
 * LOADING DOTS
