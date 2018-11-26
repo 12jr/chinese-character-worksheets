@@ -10,6 +10,7 @@
 	<script src="res/fontsB64/noto-sans-light.js"></script>
 	<script src="res/fontsB64/ar-pl-ukai-cn-ff-ttf.js"></script>
 	<script src="res/jspdf.js"></script>
+	<script src="res/ref.js"></script>
 	<script src="res/script.js"></script>
 </head>
 <body>
@@ -34,7 +35,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Stroke order<sup id="ref1-origin"><a href="#ref1">1</a></sup>:</td>
+				<td>Stroke order<sup class="refSup" data-ref="strokeOrders"></sup>:</td>
 				<td>
 					<span class="checkRadioBlock"><input type="radio" id="so-ch" name="strokeOrder" value="ch" checked> <label for="so-ch">China</label></span>
 					<span class="checkRadioBlock"><input type="radio" id="so-tw" name="strokeOrder" value="tw" disabled> <label for="so-tw">Taiwan</label></span>
@@ -43,7 +44,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label for="number-gray-signs">Number of grayscale support signs<sup id="ref2-origin"><a href="#ref2">2</a></sup>:</label></td>
+				<td><label for="number-gray-signs">Number of grayscale support signs<sup class="refSup" data-ref="grayscaleSquares"></sup>:</label></td>
 				<td>
 					<input id="number-gray-signs" type="number" min=0 max=10 value="4"/>/10
 				</td>
@@ -55,7 +56,7 @@
 					<br/>
 					<input type="checkbox" id="write-pinyin" name="write-pinyin" checked> <label for="write-pinyin">Add Pīnyīn to the characters</label>
 					<br/>
-					<input type="checkbox" id="use-gridlines" name="use-gridlines" checked> <label for="use-gridlines">Use gridlines</label><sup id="ref3-origin"><a href="#ref3">3</a></sup>
+					<input type="checkbox" id="use-gridlines" name="use-gridlines" checked> <label for="use-gridlines">Use gridlines</label><sup class="refSup" data-ref="gridlines"></sup>
 					<br/>
 					<input type="checkbox" id="write-name" name="write-name" checked> <label for="write-name">Write "姓名：___" (name) on top</label>
 				</td>
@@ -64,8 +65,8 @@
 				<td>Way of receiving PDF:</td>
 				<td>
 					<span class="checkRadioBlock"><input type="radio" id="way-of-retr-download" name="way-of-retr" value="download" checked> <label for="way-of-retr-download">Download</label></span>
-					<span class="checkRadioBlock"><input type="radio" id="way-of-retr-window" name="way-of-retr" value="window"> <label for="way-of-retr-window">Open in new window/tab</label><sup id="ref4-origin"><a href="#ref4">4</a>,</sup><sup id="ref5-origin"><a href="#ref5">5</a></sup></span>
-					<span class="checkRadioBlock"><input type="radio" id="way-of-retr-cur-window" name="way-of-retr" value="currentWindow"> <label for="way-of-retr-cur-window">Open in current window/tab</label><sup id="ref5-origin2"><a href="#ref5">5</a></sup></span>
+					<span class="checkRadioBlock"><input type="radio" id="way-of-retr-window" name="way-of-retr" value="window"> <label for="way-of-retr-window">Open in new window/tab</label><sup class="refSup" data-ref="windowsTabs"></sup><sup class="refSup" data-ref="tabsPreview"></sup></span>
+					<span class="checkRadioBlock"><input type="radio" id="way-of-retr-cur-window" name="way-of-retr" value="currentWindow"> <label for="way-of-retr-cur-window">Open in current window/tab</label><sup class="refSup" data-ref="windowsTabs"></sup></span>
 				</td>
 			</tr>
 			<tr id="filenameTr">
@@ -87,12 +88,12 @@
 	</fieldset>
 	
 	__________
-	<dl style="margin-top:0">
-		<dt id="ref1">[<a href="#ref1-origin">1</a>]</dt>
+	<dl id="footnotes">
+		<dt data-footnote="strokeOrders"></dt>
 			<dd>This refers to the cases where traditional and/or Japanese characters look the same as the simplified ones. Amongst those cases are only 4 resp. 57 stroke orders that differ from the China stroke order in <a href="https://commons.wikimedia.org/wiki/Commons:Stroke_Order_Project#Finding_characters" target="_blank">our database</a> (as of November 20, 2018).</dd>
-		<dt id="ref2">[<a href="#ref2-origin">2</a>]</dt>
+		<dt data-footnote="grayscaleSquares"></dt>
 			<dd>Per character, there are 10 squares for students to practice writing the sign (and one square in front of them displaying the sign). In how many of those 10 squares should the sign be written in grayscale to support practicing? Lower numbers for more advanced students.</dd>
-		<dt id="ref3">[<a href="#ref3-origin">3</a>]</dt>
+		<dt data-footnote="gridlines"></dt>
 			<dd>
 				<div id="gridlineExampleTable">
 					<div>With gridlines:<br/><img src="res/img/with-gridlines.png" alt="With gridlines"/></div><div>vs.</div>
@@ -108,9 +109,9 @@
 					</tr>-->
 				</div>
 			</dd>
-		<dt id="ref4">[<a href="#ref4-origin">4</a>]</dt>
+		<dt data-footnote="windowsTabs"></dt>
 			<dd>You might have to allow pop-ups for this page. Further, if this settings results in a new window or tab depends on your browser (settings).</dd>
-		<dt id="ref5">[<a href="#ref5-origin">5</a>]</dt>
+		<dt data-footnote="tabsPreview"></dt>
 			<dd>Sometimes, the created PDF document looks slightly different in the browser's preview. To see the actual result, open it in you favorite desktop PDF viewer. (You can still save the document when choosing one of the window/tab options. Simply hit Ctrl+S or right click and choose "Save Page as...".)</dd>
 	</dl>
 	

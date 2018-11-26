@@ -48,10 +48,9 @@ sup a {
 input:disabled+label {
 	opacity: .6;
 }
-/*
-#gridlineExampleTable td {
-	padding: 0 5px 0 0;
-}*/
+#footnotes {
+	margin-top: 0;
+}
 #gridlineExampleTable {
 	display: table;
 }
