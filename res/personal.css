@@ -1,6 +1,8 @@
 /* this is the customized style for the app - feel free to change it to your own design */
 body {
 	background-color: #CC8F8F;
+	max-width: 1000px;
+    margin: 0 auto;
 }
 a {
 	color: #7b0606;
