@@ -5,11 +5,12 @@
 2.  Open the downloaded file and follow the instructions.
 
 This also works on your mobile phone or tablet!
-### Consider before downloading
-*  To add stroke order images (like [this one](https://upload.wikimedia.org/wikipedia/commons/b/b6/%E6%88%91-bw.png)) to your worksheet, this tool has to be able to reach [wikimedia.org](wikimedia.org) and [cors.io](https://cors.io/).
-*  To add [Pīnyīn](https://en.wikipedia.org/wiki/Pinyin) to your worksheet, this tool has to be able to reach [glosbe.com](https://glosbe.com/) and [cors.io](https://cors.io/).
-
-Except for those two features, the tool is able to run offline.
+### What do I need to run this tool?
+*  A browser with enabled Javascript. This tool was developed with and for Mozilla Firefox, thus Firefox is recommended.
+*  Some features need an internet connection to work:
+    *  To add stroke order images (like [this one](https://upload.wikimedia.org/wikipedia/commons/b/b6/%E6%88%91-bw.png)) to your worksheet, this tool has to be able to reach [wikimedia.org](wikimedia.org) and [cors.io](https://cors.io/).
+    *  To add [Pīnyīn](https://en.wikipedia.org/wiki/Pinyin) to your worksheet, this tool has to be able to reach [glosbe.com](https://glosbe.com/) and [cors.io](https://cors.io/).
+    *  Except for those two features, the tool is able to run offline after the download.
 ## For developers
 Please refer to the [wiki](https://github.com/12jr/chinese-character-worksheets/wiki).
 ### Used libraries, APIs, fonts etc.
@@ -23,3 +24,4 @@ Please refer to the [wiki](https://github.com/12jr/chinese-character-worksheets/
 *   [Some code](https://codepen.io/vkjgr/pen/gbPaVx) for fancy "loading dots".
 *   [AR PL UKai CN](https://www.freedesktop.org/wiki/Software/CJKUnifonts/) ([available here](https://github.com/saiswa/free-fonts/blob/master/PCLinuxOSFonts/AR%20PL%20UKai%20CN%2C%20Regular.ttc)) as a Chinese font.
 *   [Noto Sans](https://www.google.com/get/noto/#sans-lgc) as a Pīnyīn font.
+*   [html-inline](https://github.com/substack/html-inline) to create the downloadable .html file.
