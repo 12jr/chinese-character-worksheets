@@ -12,6 +12,7 @@
 	<script src="res/fontsB64/ar-pl-ukai-cn-ff-ttf.js"></script>
 	<script src="res/jspdf.js"></script>
 	<script src="res/ref.js"></script>
+	<script src="res/secToggle.js"></script>
 	<script src="res/script.js"></script>
 </head>
 <body>
@@ -81,8 +82,8 @@
 		</table>
 	</fieldset>
 	
-	__________
-	<dl id="footnotes">
+	<h3 class="togglingHeading">Footnotes<span class="toggle" id="footnoteToggle">hide</span></h3>
+	<span><dl id="footnotes">
 		<dt data-footnote="grayscaleSquares"></dt>
 			<dd>Per character, there are 10 squares for students to practice writing the sign (and one square in front of them displaying the sign). In how many of those 10 squares should the sign be written in grayscale to support practicing? Lower numbers for more advanced students.</dd>
 		<dt data-footnote="gridlines"></dt>
@@ -105,14 +106,15 @@
 			<dd>You might have to allow pop-ups for this page. Further, if this settings results in a new window or tab depends on your browser (settings).</dd>
 		<dt data-footnote="tabsPreview"></dt>
 			<dd>Sometimes, the created PDF document looks slightly different in the browser's preview. To see the actual result, open it in you favorite desktop PDF viewer. (You can still save the document when choosing one of the window/tab options. Simply hit Ctrl+S or right click and choose "Save Page as...".)</dd>
-	</dl>
+	</dl></span>
 	
 	<hr/>
 	
-	<h2>Yet another Chinese learning-something tool?</h2>
-	Yes, as I was kinda surprised when my Chinese teacher used a tool she paid for to do exactly this.
-	<h2 id="sec:errorHandling">Error handling</h2>
-	What to do if something went wrong. Try those suggestions:
+	<h3 class="togglingHeading">Yet another Chinese learning-something tool?<span class="toggle">hide</span></h3>
+	<span>Yes, as I was kinda surprised when my Chinese teacher used a tool she paid for to do exactly this.</span>
+	
+	<h3 class="togglingHeading" id="sec:errorHandling">Error handling<span class="toggle">hide</span></h3>
+	<span>What to do if something went wrong. Try those suggestions:
 	<ul>
 		<li>This tool heavily uses the internet. Make sure you are connected and wikimedia.org, cors.io and glosbe.com are accessible. (You can find the links in the <a href="#sec:thisToolUses">"This tool uses..." section</a>.)</li>
 		<li>If it says "PDF created" but you did not get the PDF, try choose a different option under "Way of receiving PDF". "Download" usually works. Also refer to <a href="#ref4">Footnote 4</a>.</li>
@@ -120,9 +122,10 @@
 			<ul><li>If this solves your issue, please report about both the input that did not work and the one that did on <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or by <a href="https://github.com/12jr/" target="_blank">contacting me</a>.</li></ul>
 		<li>There is some character you entered which is not written on the worksheet? Please post that character(s) on <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or <a href="https://github.com/12jr/" target="_blank">contact me</a>. The reason is probably the font this project has to use, see <a href="#About-AR-PL-Ukai-CN">here</a>.</li>
 	</ul>
-	If those suggestions did not help you, post your question to <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or <a href="https://github.com/12jr/" target="_blank">contact me</a>.
-	<h2 id="sec:thisToolUses">This tool uses...</h2>
-	<ul>
+	If those suggestions did not help you, post your question to <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">the Github Issues page</a> or <a href="https://github.com/12jr/" target="_blank">contact me</a>.</span>
+	
+	<h3 class="togglingHeading" id="sec:thisToolUses">This tool uses...<span class="toggle">hide</span></h3>
+	<span><ul>
 		<li>The <a href="https://commons.wikimedia.org/wiki/Commons:Stroke_Order_Project" target="_blank"> Wikimedia Commons Stroke Order Project</a> as the source of the stroke order pictures,
 		<br/>the <a href="https://www.mediawiki.org/wiki/API:Main_page" target="_blank">Wikimedia Commons API</a> to get those pictures, and
 		<br/><a href="https://cors.io/" target="_blank">cors.io</a> to be able to get those pictures with JavaScript.</li>
@@ -141,10 +144,10 @@
 		</li>
 		<li><a href="https://www.google.com/get/noto/#sans-lgc" target="_blank">Noto Sans</a> as a Pīnyīn font.</li>
 	</ul>
-	Thank you to everybody who contributed to those projects and thereby made this one possible!
+	Thank you to everybody who contributed to those projects and thereby made this one possible!</span>
 	
-	<h2><a href="https://github.com/12jr/chinese-character-worksheets" target="_blank">Fork and/or download me on Github!</a></h2>
-	Users: <a href="https://github.com/12jr/chinese-character-worksheets/releases" target="_blank">Download (@Releases page)</a>&ensp;|&ensp;Developers: <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">What to do next? (@Issues page)</a>
+	<h3><a href="https://github.com/12jr/chinese-character-worksheets" target="_blank">Fork and/or download me on Github!</a></h3>
+	<span>Users: <a href="https://github.com/12jr/chinese-character-worksheets/releases" target="_blank">Download (@Releases page)</a>&ensp;|&ensp;Developers: <a href="https://github.com/12jr/chinese-character-worksheets/issues" target="_blank">What to do next? (@Issues page)</a></span>
 	<hr/>
 	版权 2018. Version 1.1.1. <a href="https://github.com/12jr/chinese-character-worksheets/blob/master/LICENSE" target="_blank">MIT License</a>. <a href="#">Go to top ↑</a>
 </body>

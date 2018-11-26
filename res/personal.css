@@ -3,10 +3,10 @@ body {
 	background-color: #CC8F8F;
 }
 a {
-	color: rgba(0,0,0,0.65);
+	color: #7b0606;
 }
 a:hover {
-	color: rgba(0,0,0,1);
+	color: #000;
 }
 hr {
 	border: 0;
@@ -52,6 +52,9 @@ input[type="radio"]:checked+label, input[type="checkbox"]:checked+label {
 }
 #statusTr.error #mainstatus {
 	background-color: #F56991;
+}
+dt, dd {
+	padding-left: 20px;
 }
 @media only screen and (max-width: 600px) {
     body {

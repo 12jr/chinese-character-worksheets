@@ -65,6 +65,19 @@ input:disabled+label {
 .only-mobile {
 	display: none;
 }
+.togglingHeading .toggle {
+	color: rgba(0,0,0,0.6);
+	cursor: pointer;
+	margin: 0 0 0 8px;
+	font-weight: normal;
+	font-size: 0.65em;
+	display: inline-block;
+	position: absolute;
+}
+.togglingHeading .toggle:hover {
+	color: rgba(0,0,0,0.9);
+	text-decoration: underline;
+}
 /*
 * LOADING DOTS
 * this is from https://codepen.io/vkjgr/pen/gbPaVx
