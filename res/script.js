@@ -234,7 +234,10 @@ $(document).ready(function(){
 				.replace(/[^\u4E00-\u9FFF]+/g,""); // replace everything except chinese chars
 			var characters = charactersString.split("");
 			if($("#removeDuplicates").is(':checked')){ // if user wants duplicates to be removed => remove them!
-				characters = $.unique(characters);
+				function onlyUnique(value, index, self) { 
+					return self.indexOf(value) === index;
+				}
+				characters = characters.filter(onlyUnique);
 				charactersString = characters.join("");
 			}
 			if(charactersString == ""){
