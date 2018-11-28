@@ -1,8 +1,8 @@
 $(document).ready(function(){
-	/*
-	*	Function called when "create-pdf" button is clicked
-	*	a.k.a. most important function of the tool
-	*/
+/*
+*	Function called when "create-pdf" button is clicked
+*	a.k.a. most important function of the tool
+*/
 	$("#create-pdf").click(function(){
 		// Hide button and display status
 			$("#formFieldset *").prop("disabled", true);
@@ -95,10 +95,10 @@ $(document).ready(function(){
 		console.log(res);
 	})*/
 
-	/*
-	*	Hide filename setting and only show it if the user chooses "download"
-	*	https://stackoverflow.com/a/4643760
-	*/
+/*
+*	Hide filename setting and only show it if the user chooses "download"
+*	https://stackoverflow.com/a/4643760
+*/
 	// Hide the div using jQuery rather than CSS, as if JavaScirpt is disabled
 	// the user should still be able to access the inputs.
 	$('input:radio[name="way-of-retr"]').change(function() {
@@ -111,4 +111,11 @@ $(document).ready(function(){
 	});
 	// check for the first time when html doc ready
 	$('input:radio[name="way-of-retr"]').change();
+
+/* 
+*	Hide notification when clicking "X"
+*/
+	$(".notifHide").click(function(){
+		$(this).parent().fadeOut("fast");
+	});
 });

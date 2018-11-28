@@ -5,6 +5,23 @@
 body {
 	padding: 0 15px 15px 15px;
 }
+.notification {
+	margin: 10px 0 0 0;
+	padding: 10px 15px 10px 10px;
+	border: 1px solid grey;
+	position: relative;
+}
+.notification .notifTitle {
+	font-weight: bold;
+	margin: 0 5px 0 0;
+}
+.notification .notifHide {
+	font-weight: bold;
+	right:	2px;
+	top:	2px;
+	cursor: pointer;
+	position: absolute;
+}
 .formtable {
 	border-collapse: collapse;
 }

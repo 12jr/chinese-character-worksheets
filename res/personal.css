@@ -3,6 +3,7 @@ body {
 	background-color: #CC8F8F;
 	max-width: 1000px;
     margin: 0 auto;
+	font-size: 12pt;
 }
 a {
 	color: #7b0606;
@@ -14,6 +15,38 @@ hr {
 	border: 0;
 	height: 2px;
 	background-color: #000;
+}
+.notification {
+	border: none;
+	border-bottom: 2px solid #7b0606;
+	background-color: #F6ED24;
+	font-size: 1.5em;
+	animation: 5s infinite bgcolorchange;
+	text-align: center;
+}
+.notification:hover {
+	animation: none;
+	background-color: #fff;
+}
+.notification .notifTitle {
+	text-transform: uppercase;
+	display: block;
+}
+.notification .notifTitle::before {
+	content: '※※※ ';
+}
+.notification .notifTitle::after {
+	content: ' ※※※';
+}
+.notification a {
+	font-weight: bold;
+}
+.notification .notifText {
+	display: block;
+}
+.notification .notifHide {
+	font-size: 0.5em;
+	color: rgba(123,6,6,0.7);
 }
 #characters {
 	height: 60pt;
@@ -36,7 +69,7 @@ hr {
 .formtable td:nth-child(1){
 	font-weight: bold;
 }
-.annotation:before {
+.annotation::before {
 	content: '※';
 }
 input[type="radio"]:checked+label, input[type="checkbox"]:checked+label {
@@ -81,5 +114,19 @@ dt, dd {
 	}
 	.only-mobile {
 		display: initial;
+	}
+}
+@keyframes bgcolorchange {
+	0% {
+		background-color: #F6ED24;
+	}
+	25% {
+		background-color: #fff;
+	}
+	75% {
+		background-color: #F6ED24;
+	}
+	50% {
+		background-color: #fff;
 	}
 }
