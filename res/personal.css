@@ -38,7 +38,7 @@ hr {
 .notification .notifTitle::after {
 	content: ' ※※※';
 }
-.notification a {
+.notification a.getUpdateLink {
 	font-weight: bold;
 }
 .notification .notifText {
