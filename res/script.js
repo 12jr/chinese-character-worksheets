@@ -57,7 +57,7 @@ $(document).ready(function(){
 				return function(r){
 					charPicUrl[currentI] = r; // save url
 						// get base64 of the image
-						getImageAsBase64FromUrl(charPicUrl[currentI], function(w){ // function(v) is a dirty trick to preserve currentI, see https://stackoverflow.com/a/7053992
+						getImageAsBase64FromUrl(charPicUrl[currentI], function(w){ // function(w) is a dirty trick to preserve currentI, see https://stackoverflow.com/a/7053992
 							return function(bRes){
 								charPicBase64[v] = bRes; // Save base64 (v is currentI here)
 								charPicAvailable[v] = bRes != ""; // 
