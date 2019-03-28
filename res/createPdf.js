@@ -68,11 +68,28 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 								thisLineYUpLeft + 0.5 * charLineHeight);
 					doc.setDrawColor("000000");
 				}
-			// paste Wikimedia Stroke Order Images
+			/*// paste Wikimedia Stroke Order Images
 				if(pasteSoImages && charPicAvailable[i]) { // if user wants stroke order images AND if Wikimedia provides stroke order image
 					imgProp = doc.getImageProperties(charPicBase64[i]);
 					doc.addImage(charPicBase64[i], 'PNG', xUpLeft + 19, yUpLeft + (i%charsPerPage) * charLineDistance - 7, imgProp.width * 6.8 / imgProp.height, 6.8, "", "NONE", 0);
-				}
+				}*/
+			// paste hanzi-write Stroke Order SVGs
+				drawSO(characters[i], function(){
+					//console.log("enter");
+					var charSvgs = document.getElementById('strokeOrderSvgs').childNodes;
+					console.log(charSvgs.length);
+					for(k = 0; k < charSvgs.length; k++){
+						svg2pdf(charSvgs[k], doc, {
+							xOffset: xUpLeft + 19 + k * 7.2,
+							yOffset: thisLineYUpLeft - 7,
+							scale: 1
+						});
+						console.log("draw!");
+					}
+					//console.log("svgs inserted");
+					$("#strokeOrderSvgs").empty();
+					//console.log($("#strokeOrderSvgs").html());
+				});
 			// write pinyin
 				if(writePinyin){
 					doc.setFont('Noto Sans');

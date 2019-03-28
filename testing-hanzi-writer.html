@@ -11,32 +11,27 @@
 	<script src="res/fontsB64/ar-pl-ukai-cn-ff-ttf-part-2.js"></script>
 	<script src="res/libs/jquery.js"></script>
 	<script src="res/libs/jspdf.js"></script>
+	<script src="res/libs/svg2pdf.js"></script>
 	<script src="res/libs/hanzi-writer.min.js"></script>
-		<!-- Required to convert named colors to RGB -->
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/canvg/1.4/rgbcolor.min.js"></script>
-		<!-- Optional if you want blur -->
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
-		<!-- Main canvg code -->
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 	<script src="res/ref.js"></script>
 	<script src="res/secToggle.js"></script>
 	<script src="res/createPdf.js"></script>
 </head>
 <body>
 	<button onclick="createPDF();">Go!</button>
-	<div id="character-target-div"></div>
+	<div id="character-target-div" style=""></div>
 	<script>
 		$(document).ready(function(){
 			function renderFanningStrokes(target, strokes) {
 			  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-			  svg.style.width = '75px';
-			  svg.style.height = '75px';
+			  svg.style.width = '6.75px';
+			  svg.style.height = '6.75px';
 			  svg.style.marginRight = '3px';
 			  target.appendChild(svg);
 			  var group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
 
 			  // set the transform property on the g element so the character renders at 75x75
-			  var transformData = HanziWriter.getScalingTransform(75,75);
+			  var transformData = HanziWriter.getScalingTransform(6.75,6.75);
 			  group.setAttributeNS(null, 'transform', transformData.transform);
 			  //group.setAttributeNS(null, 'style', 'height: 100%, width: 100%');
 			  svg.appendChild(group);
@@ -65,20 +60,14 @@
 			
 			pdf.rect(33,50,177,6.8);
 			
-			pdf.addSvg('<svg height="210" width="400"><path d="M150 0 L75 200 L225 200 Z" /></svg>', 50, 50, 400, 400);
-			
 			var charSvgs = document.getElementById('character-target-div').childNodes;
+			
 			for(i = 0; i < charSvgs.length; i++){
-				var yourSVG = charSvgs[i];
-				yourSVG.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns', 'http://www.w3.org/2000/svg');
-				yourSVG.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink');
-
-				var serializer = new XMLSerializer();
-				var serialSVG = serializer.serializeToString(yourSVG);
-				
-				//var svgAsText = new XMLSerializer().serializeToString(charSvgs[i]);
-				console.log(serialSVG);
-				pdf.addSvgAsImage(serialSVG, 50, 50, 500, 500);
+				svg2pdf(charSvgs[i], pdf, {
+					xOffset: 33 + i * 7.2,
+					yOffset: 50,
+					scale: 1
+				});
 			}
 			
 			pdf.output('dataurlnewwindow');
