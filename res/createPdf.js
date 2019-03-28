@@ -65,25 +65,32 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 				// write page number
 					doc.setFontSize(11); //in pt
 					doc.text("第" + curPage + "页", 201, 16, 'right'); // 201 is 210-rightIndent
+				// copyright on the bottom
+					doc.setFont('Noto Sans');
+					doc.setFontSize(10); //in pt
+					var copyrightText = 'Create your own Chinese worksheets for free: www.is.gd/ch_ex';
+					var copyrightTextWidth = doc.getTextWidth(copyrightText) + 2;
+					var copyrightTextHeight = doc.internal.getLineHeight()/doc.internal.scaleFactor + 1;
+					doc.text(copyrightText, 105, charLineDistance * (charsPerPage+1) - 3, 'center');
+					doc.link(105 - copyrightTextWidth/2,
+						charLineDistance * (charsPerPage+1) - 1.5 - copyrightTextHeight,
+						copyrightTextWidth,
+						copyrightTextHeight,
+						{ url: 'https://is.gd/ch_ex'});
 			}
 			thisLineYUpLeft = yUpLeft + (i%charsPerPage) * charLineDistance;
-		// paste hanzi-write Stroke Order SVGs
-			drawSO(characters[i], (function(){
-				var thisLineYUpLeftHere = thisLineYUpLeft;
-				var curPageHere = curPage;
-				return function(){
-					var charSvgs = document.getElementById('strokeOrderSvgs').childNodes;
-					for(var k = 0; k < charSvgs.length; k++){
-						drawTest(charSvgs[k], doc, xUpLeft + 19 + k * 7.2, thisLineYUpLeftHere - 7.1, curPageHere);
-					}
-					$("#strokeOrderSvgs").empty();
-				};
-			})() );
-
-
-
-		// draw test svg
-			//drawTest(document.getElementById('testSvg'), doc, 20, 20);
+			// paste hanzi-write Stroke Order SVGs
+				drawSO(characters[i], (function(){
+					var thisLineYUpLeftHere = thisLineYUpLeft;
+					var curPageHere = curPage;
+					return function(){
+						var charSvgs = document.getElementById('strokeOrderSvgs').childNodes;
+						for(var k = 0; k < charSvgs.length; k++){
+							drawTest(charSvgs[k], doc, xUpLeft + 19 + k * 7.2, thisLineYUpLeftHere - 7.1, curPageHere);
+						}
+						$("#strokeOrderSvgs").empty();
+					};
+				})() );
 			// gridlines - part 1
 				if(useGridlines){
 					doc.setDrawColor("D0D0D0");
