@@ -44,7 +44,7 @@
 				group.appendChild(path);
 			  });
 			}
-			
+
 			HanziWriter.loadCharacterData('餐').then(function(charData) {
 				var target = document.getElementById('character-target-div');
 				for (var i = 0; i < charData.strokes.length; i++) {
@@ -53,15 +53,15 @@
 					//console.log(strokesPortion);
 				}
 			});
-			
+
 		});
 		var createPDF = function () {
 			var pdf = new jsPDF();
-			
+
 			pdf.rect(33,50,177,6.8);
-			
+
 			var charSvgs = document.getElementById('character-target-div').childNodes;
-			
+
 			for(i = 0; i < charSvgs.length; i++){
 				svg2pdf(charSvgs[i], pdf, {
 					xOffset: 33 + i * 7.2,
@@ -69,37 +69,9 @@
 					scale: 1
 				});
 			}
-			
+
 			pdf.output('dataurlnewwindow');
 		}
 	</script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

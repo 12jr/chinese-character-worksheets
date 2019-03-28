@@ -5,6 +5,15 @@
 *	writePinyin, useGridlines, writeName : Booleans
 *	docTitle, filename, wayOfRetrieval : Strings
 */
+function drawTest(el, doc, xOffset, yOffset, page){
+	doc.setPage(page);
+	svg2pdf(el, doc, {
+		xOffset: xOffset,
+		yOffset: yOffset,
+		scale: 1
+	});
+}
+
 function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval){
 	// make filename "filesystem-secure"
 		filename = filename.replace(/[^a-z0-9öäüß\s\-\_\u4E00-\u9FFF]/gi, '');
@@ -58,6 +67,23 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 					doc.text("第" + curPage + "页", 201, 16, 'right'); // 201 is 210-rightIndent
 			}
 			thisLineYUpLeft = yUpLeft + (i%charsPerPage) * charLineDistance;
+		// paste hanzi-write Stroke Order SVGs
+			drawSO(characters[i], (function(){
+				var thisLineYUpLeftHere = thisLineYUpLeft;
+				var curPageHere = curPage;
+				return function(){
+					var charSvgs = document.getElementById('strokeOrderSvgs').childNodes;
+					for(var k = 0; k < charSvgs.length; k++){
+						drawTest(charSvgs[k], doc, xUpLeft + 19 + k * 7.2, thisLineYUpLeftHere - 7.1, curPageHere);
+					}
+					$("#strokeOrderSvgs").empty();
+				};
+			})() );
+
+
+
+		// draw test svg
+			//drawTest(document.getElementById('testSvg'), doc, 20, 20);
 			// gridlines - part 1
 				if(useGridlines){
 					doc.setDrawColor("D0D0D0");
@@ -73,23 +99,6 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 					imgProp = doc.getImageProperties(charPicBase64[i]);
 					doc.addImage(charPicBase64[i], 'PNG', xUpLeft + 19, yUpLeft + (i%charsPerPage) * charLineDistance - 7, imgProp.width * 6.8 / imgProp.height, 6.8, "", "NONE", 0);
 				}*/
-			// paste hanzi-write Stroke Order SVGs
-				drawSO(characters[i], function(){
-					//console.log("enter");
-					var charSvgs = document.getElementById('strokeOrderSvgs').childNodes;
-					console.log(charSvgs.length);
-					for(k = 0; k < charSvgs.length; k++){
-						svg2pdf(charSvgs[k], doc, {
-							xOffset: xUpLeft + 19 + k * 7.2,
-							yOffset: thisLineYUpLeft - 7,
-							scale: 1
-						});
-						console.log("draw!");
-					}
-					//console.log("svgs inserted");
-					$("#strokeOrderSvgs").empty();
-					//console.log($("#strokeOrderSvgs").html());
-				});
 			// write pinyin
 				if(writePinyin){
 					doc.setFont('Noto Sans');
@@ -128,7 +137,7 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 					}
 				// vertical lines
 				doc.line(xUpLeft + j * charCellWidth, thisLineYUpLeft, xUpLeft + j * charCellWidth, thisLineYUpLeft + charLineHeight);
-				// todo: write first char (j=0) and grey chars (j=1,...,11)
+				// write first char (j=0) and grey chars (j=1,...,11)
 				if(j == 1) doc.setTextColor("#C0C0C0");  // set color to grey, so the supporting characters will be in grey
 				if(j == 11) doc.setTextColor("#000000"); // reset color to black
 				if(j <= numberOfGrayscaleSigns){ // it's either the first, black sign (j==0) or one of the grayscale signs (j=1,2,...,numberOfGrayscaleSigns)
@@ -141,15 +150,18 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 			doc.line(xUpLeft, thisLineYUpLeft + charLineHeight, xUpLeft + 11 * charCellWidth, thisLineYUpLeft + charLineHeight);
 			$(".amountDone").html(i);
 		};
-		
+
 	// return doc
-		if(wayOfRetrieval == "window")
-			doc.output('dataurlnewwindow');
-		else if(wayOfRetrieval == "currentWindow")
-			doc.output('datauri');
-		else
-			doc.save(filename + '.pdf');
-		$("#statusTr").removeClass("processing");
-		$("#mainstatus").html('PDF created.');
-		$("#substatus").html('<a href="index.html">Start from the beginning for a new worksheet!</a><br/>(You can also press F5 in order to keep the values you entered in the form.)');
+		setTimeout(function(){
+			if(wayOfRetrieval == "window")
+				doc.output('dataurlnewwindow');
+			else if(wayOfRetrieval == "currentWindow")
+				doc.output('datauri');
+			else
+				doc.save(filename + '.pdf');
+			$("#statusTr").removeClass("processing");
+			$("#mainstatus").html('PDF created.');
+			$("#substatus").html('<a href="index.html">Start from the beginning for a new worksheet!</a><br/>(You can also press F5 in order to keep the values you entered in the form.)');
+		}, 3000);
+		// TODO: This timeout above makes it work: Without it, the document was created before the stroke orders were drawn. Anyways, this is just a very dirty trick -- it should be done with callbacks somehow!
 }
