@@ -9,7 +9,7 @@ This also works on your mobile phone or tablet!
 ### What do I need to run this tool?
 *  A browser with enabled Javascript. This tool was developed with and for Mozilla Firefox, thus Firefox is recommended.
 *  Some features need an internet connection to work:
-    *  To add stroke order images (similar to [https://web.csulb.edu/~jwinter2/chin101/strokeorder/static/4e5f.png](this)) to your worksheet, this tool has to be able to reach [https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/](cdn.jsdelivr.net).
+    *  To add stroke order images (similar to [this](https://web.csulb.edu/~jwinter2/chin101/strokeorder/static/4e5f.png)) to your worksheet, this tool has to be able to reach [cdn.jsdelivr.net](https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/).
     *  To add [Pīnyīn](https://en.wikipedia.org/wiki/Pinyin) to your worksheet, this tool has to be able to reach [glosbe.com](https://glosbe.com/) and [cors.io](https://cors.io/).
     *  Except for those two features, the tool is able to run offline after the download.
 
@@ -17,7 +17,7 @@ This also works on your mobile phone or tablet!
 Please refer to the [wiki](https://github.com/12jr/chinese-character-worksheets/wiki).
 
 ### Used libraries, APIs, fonts etc.
-*   [https://github.com/chanind/hanzi-writer](Hanzi Writer) as a source of the stroke orders and a library to turn them into vector graphics.
+*   [Hanzi Writer](https://github.com/chanind/hanzi-writer) as a source of the stroke orders and a library to turn them into vector graphics.
 *   [Glosbe API](https://glosbe.com/a-api) to create Pīnyīn from the characters, and  
     [cors.io](https://cors.io/) to do that with JavaScript.
 *   [jsPDF](https://parall.ax/products/jspdf) to create the PDFs dynamically.
