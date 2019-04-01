@@ -1,11 +1,11 @@
 /*
 *	Creates Pdf from given params.
-*	characters, charPicUrl, charPinyin : String arrays
+*	characters, charPinyin : String arrays
 *	numberOfGrayscaleSigns : int
 *	writePinyin, useGridlines, writeName : Booleans
 *	docTitle, filename, wayOfRetrieval : Strings
 */
-function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval){
+function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPinyin, wayOfRetrieval){
 	// make filename "filesystem-secure"
 		filename = filename.replace(/[^a-z0-9öäüß\s\-\_\u4E00-\u9FFF]/gi, '');
 		filename = filename == "" ? "my-chinese-exercise" : filename;
@@ -75,16 +75,16 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 			thisLineYUpLeft = yUpLeft + (i%charsPerPage) * charLineDistance;
 			// paste hanzi-write Stroke Order SVGs
 				if(pasteSoImages){
+					// this is the div which contains the stroke order of the character "characters[i]"
 					var charSvgs = document.getElementById('strokeOrderSvgs-' + characters[i]).childNodes;
+					// draw every "stroke order element" (= the partial character after k strokes)
 					for(var k = 0; k < charSvgs.length; k++){
-						//doc.setPage(curPageHere);
 						svg2pdf(charSvgs[k], doc, {
 							xOffset: xUpLeft + 19 + k * 7.2,
 							yOffset: thisLineYUpLeft - 7.1,
 							scale: 1
 						});
 					}
-					$("#strokeOrderSvgs").empty();
 				}
 			// gridlines - part 1
 				if(useGridlines){
@@ -96,11 +96,6 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 								thisLineYUpLeft + 0.5 * charLineHeight);
 					doc.setDrawColor("000000");
 				}
-			/*// paste Wikimedia Stroke Order Images
-				if(pasteSoImages && charPicAvailable[i]) { // if user wants stroke order images AND if Wikimedia provides stroke order image
-					imgProp = doc.getImageProperties(charPicBase64[i]);
-					doc.addImage(charPicBase64[i], 'PNG', xUpLeft + 19, yUpLeft + (i%charsPerPage) * charLineDistance - 7, imgProp.width * 6.8 / imgProp.height, 6.8, "", "NONE", 0);
-				}*/
 			// write pinyin
 				if(writePinyin){
 					doc.setFont('Noto Sans');

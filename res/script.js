@@ -45,32 +45,30 @@ $(document).ready(function(){
 			var wayOfRetrieval = $('input[name=way-of-retr]:checked').val();
 		// fetch all "character stroke order picture urls"
 		// let the user know
-			$("#substatus").html("Fetching stroke order images from Wikimedia (<span class='amountDone'>0</span>/" + characters.length + ")");
-		var i; // iteration counter
-		var charPicUrl = []; // array in which we store the urls to the "character stroke order pictures"
-		var charPicBase64 = []; // array in which we store the base64s to the "character stroke order pictures"
-		var charPicAvailable = []; // array in which we store true, if a "character stroke order picture" is available; else: false.
-		var picUrlCallbacksRemaining = characters.length; // let's count how many picture urls are still missing
-		for (i = 0; i < characters.length; i++) {
-			var currentI = i; // to avoid side effects....
+			$("#substatus").html("Fetching stroke order images from Hanzi Writer (<span class='amountDone'>0</span>/" + characters.length + ")");
+		var strokeOrderDrawingCallbacksRemaining = characters.length; // let's count how many (hidden) drawings of character stroke orders on the page are still missing
+		for (var i = 0; i < characters.length; i++) {
+			// create the container for the stroke order of the current character
 			$("#strokeOrderSvgs-template").clone().attr("id","strokeOrderSvgs-" + characters[i]).insertAfter("#strokeOrderSvgs-template");
-			drawSO(pasteSoImages, characters[i], function(){ // function(v) is a dirty trick to preserve currentI, see https://stackoverflow.com/a/7053992
+			// draw the stroke order of the current character (if the user chose to do so)
+			drawSO(pasteSoImages, characters[i], function(){
 				return function(){
-					--picUrlCallbacksRemaining; // we got one url more! one less to go.
-					$(".amountDone").html(characters.length - picUrlCallbacksRemaining);
-					if(picUrlCallbacksRemaining <= 0){ // when all urls are fetched
+					--strokeOrderDrawingCallbacksRemaining; // we drew one stroke order (equals 1 character) more! one less to go.
+					$(".amountDone").html(characters.length - strokeOrderDrawingCallbacksRemaining);
+					if(strokeOrderDrawingCallbacksRemaining <= 0){ // when all stroke orders are drawn
 						// let's get the pinyin to all the characters now (if the user chose to do so)
 						var charPinyin = [];
 						if(writePinyin){
 							$("#substatus").html("Fetching the Pīnyīn transcripts for the characters from Glosbe");
+							// we can do the request with the whole character string (= all characters) and then split up the string
 							getPinyin(charactersString, function(r){
 								charPinyin = r.split(" "); // save pinyin
 								// create the pdf now
-								createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval);
+								createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPinyin, wayOfRetrieval);
 							});
 						} else {
 							// create the pdf now
-							createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval);
+							createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPinyin, wayOfRetrieval);
 						}
 					}
 				}
