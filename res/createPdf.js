@@ -35,6 +35,7 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 		var curPage = 1;		// current page
 		var charsPerPage = 11;
 		var imgProp;
+		var totalPages = Math.ceil(characters.length/charsPerPage); // total number of pages (pre-computed)
 		for(i = 0; i < characters.length; ++i){
 			if(i%charsPerPage == 0){ // if we're at the beginning of a page
 				if(i != 0){ // if reached beginning of new page (i \in {9,19,29,...}) => add new page (& focus on it)
@@ -54,8 +55,10 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 					doc.setFontSize(14); //in pt
 					doc.text(docTitle, 105, 16, 'center'); // A4_width/2 = 210 mm/2 = 105
 				// write page number
-					doc.setFontSize(11); //in pt
-					doc.text("第" + curPage + "页", 201, 16, 'right'); // 201 is 210-rightIndent
+					doc.setFont('Noto Sans');
+					doc.setFontSize(10); //in pt
+					//doc.text("第" + curPage + "页，共" + totalPages + "页", 201, 16, 'right'); // 201 is 210-rightIndent
+					doc.text(curPage + "/" + totalPages, 201, 16, 'right'); // 201 is 210-rightIndent
 				// copyright on the bottom
 					doc.setFont('Noto Sans');
 					doc.setFontSize(10); //in pt
