@@ -49,11 +49,14 @@ input[type="radio"]:checked+label, input[type="checkbox"]:checked+label {
 	background-color: #F56991;
 	color: #000;
 }
+#statusTr.error a {
+	color: rgba(0,0,0,0.75);
+}
+#statusTr.error a:hover {
+	color: rgba(0,0,0,1);
+}
 #statusTr.error #substatus {
 	color: #000;
-}
-#statusTr.error #mainstatus {
-	background-color: #F56991;
 }
 dt, dd {
 	padding-left: 20px;

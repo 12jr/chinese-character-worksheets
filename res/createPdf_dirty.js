@@ -1,11 +1,11 @@
 /*
 *	Creates Pdf from given params.
-*	characters, charPinyin : String arrays
+*	characters, charPicUrl, charPinyin : String arrays
 *	numberOfGrayscaleSigns : int
 *	writePinyin, useGridlines, writeName : Booleans
 *	docTitle, filename, wayOfRetrieval : Strings
 */
-function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPinyin, wayOfRetrieval){
+function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval){
 	// make filename "filesystem-secure"
 		filename = filename.replace(/[^a-z0-9öäüß\s\-\_\u4E00-\u9FFF]/gi, '');
 		filename = filename == "" ? "my-chinese-exercise" : filename;
@@ -35,7 +35,6 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 		var curPage = 1;		// current page
 		var charsPerPage = 11;
 		var imgProp;
-		var totalPages = Math.ceil(characters.length/charsPerPage); // total number of pages (pre-computed)
 		for(i = 0; i < characters.length; ++i){
 			if(i%charsPerPage == 0){ // if we're at the beginning of a page
 				if(i != 0){ // if reached beginning of new page (i \in {9,19,29,...}) => add new page (& focus on it)
@@ -55,37 +54,10 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 					doc.setFontSize(14); //in pt
 					doc.text(docTitle, 105, 16, 'center'); // A4_width/2 = 210 mm/2 = 105
 				// write page number
-					doc.setFont('Noto Sans');
-					doc.setFontSize(10); //in pt
-					//doc.text("第" + curPage + "页，共" + totalPages + "页", 201, 16, 'right'); // 201 is 210-rightIndent
-					doc.text(curPage + "/" + totalPages, 201, 16, 'right'); // 201 is 210-rightIndent
-				// copyright on the bottom
-					doc.setFont('Noto Sans');
-					doc.setFontSize(10); //in pt
-					var copyrightText = 'Create your own Chinese worksheets for free: www.is.gd/ch_ex';
-					var copyrightTextWidth = doc.getTextWidth(copyrightText) + 2;
-					var copyrightTextHeight = doc.internal.getLineHeight()/doc.internal.scaleFactor + 1;
-					doc.text(copyrightText, 105, charLineDistance * (charsPerPage+1) - 3, 'center');
-					doc.link(105 - copyrightTextWidth/2,
-						charLineDistance * (charsPerPage+1) - 1.5 - copyrightTextHeight,
-						copyrightTextWidth,
-						copyrightTextHeight,
-						{ url: 'https://is.gd/ch_ex'});
+					doc.setFontSize(11); //in pt
+					doc.text("第" + curPage + "页", 201, 16, 'right'); // 201 is 210-rightIndent
 			}
 			thisLineYUpLeft = yUpLeft + (i%charsPerPage) * charLineDistance;
-			// paste hanzi-write Stroke Order SVGs
-				if(pasteSoImages){
-					// this is the div which contains the stroke order of the character "characters[i]"
-					var charSvgs = document.getElementById('strokeOrderSvgs-' + characters[i]).childNodes;
-					// draw every "stroke order element" (= the partial character after k strokes)
-					for(var k = 0; k < charSvgs.length; k++){
-						svg2pdf(charSvgs[k], doc, {
-							xOffset: xUpLeft + 19 + k * 7.2,
-							yOffset: thisLineYUpLeft - 7.1,
-							scale: 1
-						});
-					}
-				}
 			// gridlines - part 1
 				if(useGridlines){
 					doc.setDrawColor("D0D0D0");
@@ -95,6 +67,11 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 								xUpLeft + 11 * charCellWidth,
 								thisLineYUpLeft + 0.5 * charLineHeight);
 					doc.setDrawColor("000000");
+				}
+			// paste Wikimedia Stroke Order Images
+				if(pasteSoImages && charPicAvailable[i]) { // if user wants stroke order images AND if Wikimedia provides stroke order image
+					imgProp = doc.getImageProperties(charPicBase64[i]);
+					doc.addImage(charPicBase64[i], 'PNG', xUpLeft + 19, yUpLeft + (i%charsPerPage) * charLineDistance - 7, imgProp.width * 6.8 / imgProp.height, 6.8, "", "NONE", 0);
 				}
 			// write pinyin
 				if(writePinyin){
@@ -134,8 +111,8 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 					}
 				// vertical lines
 				doc.line(xUpLeft + j * charCellWidth, thisLineYUpLeft, xUpLeft + j * charCellWidth, thisLineYUpLeft + charLineHeight);
-				// write first char (j=0) and grey chars (j=1,...,11)
-				if(j == 1) doc.setTextColor("#D0D0D0");  // set color to grey, so the supporting characters will be in grey
+				// todo: write first char (j=0) and grey chars (j=1,...,11)
+				if(j == 1) doc.setTextColor("#C0C0C0");  // set color to grey, so the supporting characters will be in grey
 				if(j == 11) doc.setTextColor("#000000"); // reset color to black
 				if(j <= numberOfGrayscaleSigns){ // it's either the first, black sign (j==0) or one of the grayscale signs (j=1,2,...,numberOfGrayscaleSigns)
 					doc.text(characters[i], xUpLeft + (j + 0.5) * charCellWidth, thisLineYUpLeft + charLineHeight - 3, 'center');
@@ -147,7 +124,7 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 			doc.line(xUpLeft, thisLineYUpLeft + charLineHeight, xUpLeft + 11 * charCellWidth, thisLineYUpLeft + charLineHeight);
 			$(".amountDone").html(i);
 		};
-
+		
 	// return doc
 		if(wayOfRetrieval == "window")
 			doc.output('dataurlnewwindow');
@@ -158,5 +135,4 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 		$("#statusTr").removeClass("processing");
 		$("#mainstatus").html('PDF created.');
 		$("#substatus").html('<a href="index.html">Start from the beginning for a new worksheet!</a><br/>(You can also press F5 in order to keep the values you entered in the form.)');
-		// TODO: This timeout above makes it work: Without it, the document was created before the stroke orders were drawn. Anyways, this is just a very dirty trick -- it should be done with callbacks somehow!
 }
