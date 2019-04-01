@@ -26,13 +26,15 @@
 	  });
 	}
 // main function
-function drawSO(character, callback){
-	HanziWriter.loadCharacterData(character).then(function(charData) {
-		var target = document.getElementById('strokeOrderSvgs');
-		for (var drawSOiterator = 0; drawSOiterator < charData.strokes.length; drawSOiterator++) {
-			var strokesPortion = charData.strokes.slice(0, drawSOiterator + 1);
-			renderFanningStrokes(target, strokesPortion);
-		}
-		callback();
-	});
+function drawSO(reallyDoIt, character, callback){
+	if(reallyDoIt){
+		HanziWriter.loadCharacterData(character).then(function(charData) {
+			var target = document.getElementById('strokeOrderSvgs-' + character);
+			for (var drawSOiterator = 0; drawSOiterator < charData.strokes.length; drawSOiterator++) {
+				var strokesPortion = charData.strokes.slice(0, drawSOiterator + 1);
+				renderFanningStrokes(target, strokesPortion);
+			}
+		});
+	}
+	callback();
 }

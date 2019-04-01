@@ -5,15 +5,6 @@
 *	writePinyin, useGridlines, writeName : Booleans
 *	docTitle, filename, wayOfRetrieval : Strings
 */
-function drawTest(el, doc, xOffset, yOffset, page){
-	doc.setPage(page);
-	svg2pdf(el, doc, {
-		xOffset: xOffset,
-		yOffset: yOffset,
-		scale: 1
-	});
-}
-
 function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, writePinyin, useGridlines, writeName, filename, charPicUrl, charPicBase64, charPicAvailable, charPinyin, wayOfRetrieval){
 	// make filename "filesystem-secure"
 		filename = filename.replace(/[^a-z0-9öäüß\s\-\_\u4E00-\u9FFF]/gi, '');
@@ -81,17 +72,16 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 			thisLineYUpLeft = yUpLeft + (i%charsPerPage) * charLineDistance;
 			// paste hanzi-write Stroke Order SVGs
 				if(pasteSoImages){
-					drawSO(characters[i], (function(){
-						var thisLineYUpLeftHere = thisLineYUpLeft;
-						var curPageHere = curPage;
-						return function(){
-							var charSvgs = document.getElementById('strokeOrderSvgs').childNodes;
-							for(var k = 0; k < charSvgs.length; k++){
-								drawTest(charSvgs[k], doc, xUpLeft + 19 + k * 7.2, thisLineYUpLeftHere - 7.1, curPageHere);
-							}
-							$("#strokeOrderSvgs").empty();
-						};
-					})() );
+					var charSvgs = document.getElementById('strokeOrderSvgs-' + characters[i]).childNodes;
+					for(var k = 0; k < charSvgs.length; k++){
+						//doc.setPage(curPageHere);
+						svg2pdf(charSvgs[k], doc, {
+							xOffset: xUpLeft + 19 + k * 7.2,
+							yOffset: thisLineYUpLeft - 7.1,
+							scale: 1
+						});
+					}
+					$("#strokeOrderSvgs").empty();
 				}
 			// gridlines - part 1
 				if(useGridlines){
@@ -161,16 +151,14 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 		};
 
 	// return doc
-		setTimeout(function(){
-			if(wayOfRetrieval == "window")
-				doc.output('dataurlnewwindow');
-			else if(wayOfRetrieval == "currentWindow")
-				doc.output('datauri');
-			else
-				doc.save(filename + '.pdf');
-			$("#statusTr").removeClass("processing");
-			$("#mainstatus").html('PDF created.');
-			$("#substatus").html('<a href="index.html">Start from the beginning for a new worksheet!</a><br/>(You can also press F5 in order to keep the values you entered in the form.)');
-		}, 3000);
+		if(wayOfRetrieval == "window")
+			doc.output('dataurlnewwindow');
+		else if(wayOfRetrieval == "currentWindow")
+			doc.output('datauri');
+		else
+			doc.save(filename + '.pdf');
+		$("#statusTr").removeClass("processing");
+		$("#mainstatus").html('PDF created.');
+		$("#substatus").html('<a href="index.html">Start from the beginning for a new worksheet!</a><br/>(You can also press F5 in order to keep the values you entered in the form.)');
 		// TODO: This timeout above makes it work: Without it, the document was created before the stroke orders were drawn. Anyways, this is just a very dirty trick -- it should be done with callbacks somehow!
 }
