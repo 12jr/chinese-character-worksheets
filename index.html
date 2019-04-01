@@ -120,7 +120,7 @@
 	<h3 class="togglingHeading" id="sec:errorHandling">Error handling<span class="toggle">hide</span></h3>
 	<span>What to do if something went wrong. Try those suggestions:
 	<ul>
-		<li>This tool uses the internet to add stroke orders and Pīnyīn. Make sure you are connected and <a href="https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/" target="_blank">cdn.jsdelivr.net</a> and <a href="https://glosbe.com/a-api" target="_blank">glosbe.com</a> are accessible. Otherwise, disable stroke orders and Pīnyīn.</li>
+		<li>This tool uses the internet to add stroke orders and Pīnyīn. Make sure you are connected and <a href="https://cdn.jsdelivr.net/npm/hanzi-writer-data@2.0/" target="_blank">cdn.jsdelivr.net</a>, <a href="https://cors.io/" target="_blank">cors.io</a> and <a href="https://glosbe.com/a-api" target="_blank">glosbe.com</a> are accessible. Otherwise, disable stroke orders and Pīnyīn.</li>
 		<li>If it says "PDF created" but you did not get the PDF, try choosing a different option under "Way of receiving PDF". "Download" usually works. Also refer to <a href="#ref4">Footnote 4</a>.</li>
 		<li>If the tool does not insert stroke orders to your PDF it might be that your browser does not support a Javascript technology called "promise". <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise#Browser_compatibility" target="_blank">You can check that here</a>. Please use a more modern / another browser.</li>
 		<li>Try to choose different characters and leave all the other fields blank / at their default value.
@@ -132,7 +132,8 @@
 	<h3 class="togglingHeading" id="sec:thisToolUses">This tool uses...<span class="toggle">hide</span></h3>
 	<span><ul>
 		<li>The <a href="https://github.com/chanind/hanzi-writer"  target="_blank">Hanzi Writer</a> project as a source of the stroke orders and a library to turn them into vector graphics.</li>
-		<li><a href="https://glosbe.com/a-api" target="_blank">Glosbe API</a> to create Pīnyīn from the characters.</li>
+		<li><a href="https://glosbe.com/a-api" target="_blank">Glosbe API</a> to create Pīnyīn from the characters,
+		<br/>and <a href="https://cors.io/" target="_blank">cors.io</a> to do that with Javascript.</li>
 		<li><a href="https://github.com/yWorks/jsPDF" target="_blank">yWork's fork</a> of <a href="https://github.com/MrRio/jsPDF" target="_blank">jsPDF</a> to create the PDFs dynamically and their <a href="https://github.com/yWorks/svg2pdf.js" target="_blank">svg2pdf.js</a> utility to include the stroke order vector graphics.</li>
 		<li><a href="https://necolas.github.io/normalize.css/" target="_blank">normalize.css</a> for the looks.</li>
 		<li><a href="https://jquery.com/" target="_blank">jQuery</a> for coding.</li>
