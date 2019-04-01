@@ -80,17 +80,19 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 			}
 			thisLineYUpLeft = yUpLeft + (i%charsPerPage) * charLineDistance;
 			// paste hanzi-write Stroke Order SVGs
-				drawSO(characters[i], (function(){
-					var thisLineYUpLeftHere = thisLineYUpLeft;
-					var curPageHere = curPage;
-					return function(){
-						var charSvgs = document.getElementById('strokeOrderSvgs').childNodes;
-						for(var k = 0; k < charSvgs.length; k++){
-							drawTest(charSvgs[k], doc, xUpLeft + 19 + k * 7.2, thisLineYUpLeftHere - 7.1, curPageHere);
-						}
-						$("#strokeOrderSvgs").empty();
-					};
-				})() );
+				if(pasteSoImages){
+					drawSO(characters[i], (function(){
+						var thisLineYUpLeftHere = thisLineYUpLeft;
+						var curPageHere = curPage;
+						return function(){
+							var charSvgs = document.getElementById('strokeOrderSvgs').childNodes;
+							for(var k = 0; k < charSvgs.length; k++){
+								drawTest(charSvgs[k], doc, xUpLeft + 19 + k * 7.2, thisLineYUpLeftHere - 7.1, curPageHere);
+							}
+							$("#strokeOrderSvgs").empty();
+						};
+					})() );
+				}
 			// gridlines - part 1
 				if(useGridlines){
 					doc.setDrawColor("D0D0D0");
@@ -145,7 +147,7 @@ function createPdf(docTitle, characters, numberOfGrayscaleSigns, pasteSoImages, 
 				// vertical lines
 				doc.line(xUpLeft + j * charCellWidth, thisLineYUpLeft, xUpLeft + j * charCellWidth, thisLineYUpLeft + charLineHeight);
 				// write first char (j=0) and grey chars (j=1,...,11)
-				if(j == 1) doc.setTextColor("#C0C0C0");  // set color to grey, so the supporting characters will be in grey
+				if(j == 1) doc.setTextColor("#D0D0D0");  // set color to grey, so the supporting characters will be in grey
 				if(j == 11) doc.setTextColor("#000000"); // reset color to black
 				if(j <= numberOfGrayscaleSigns){ // it's either the first, black sign (j==0) or one of the grayscale signs (j=1,2,...,numberOfGrayscaleSigns)
 					doc.text(characters[i], xUpLeft + (j + 0.5) * charCellWidth, thisLineYUpLeft + charLineHeight - 3, 'center');
